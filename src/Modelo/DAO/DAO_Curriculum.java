@@ -10,7 +10,9 @@ import Modelo.Curriculum;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+
 
 /**
  *
@@ -27,7 +29,7 @@ public class DAO_Curriculum extends Conexion implements DAO<Curriculum>{
         
         //obj.getFechaNacimiento()
         
-      ejecutar("INSERT INTO CURRICULUM VALUES (NULL, '"+obj.getNombre()+"', '"+obj.getApellido()+"', '"+obj.getRut()+"', '2020-02-02',"
+      ejecutar("INSERT INTO CURRICULUM VALUES (NULL, '"+obj.getNombre()+"', '"+obj.getApellido()+"', '"+obj.getRut()+"', '"+obj.getFechaNacimiento()+"',"
               + " '"+obj.getNacionalidad()+"', '"+obj.getEstadoCivil()+"' , "+obj.isEsHombre()+", '"+obj.getTelefono()+"', '"+obj.getCorreo()+"', '"+obj.getDireccion()+"',"
               + " '"+obj.getNivelDeEstudio()+"', '"+obj.getOcupación()+"', '"+obj.getDisponibilidad()+"'  );");
               
@@ -89,6 +91,14 @@ public class DAO_Curriculum extends Conexion implements DAO<Curriculum>{
         return obj;
         
         
+    }
+    
+    
+    public String convertirFechaAFormatoString(Date fecha){
+        String fechaComoString = ""; 
+        
+        
+        return fechaComoString;
     }
     
 }

@@ -28,6 +28,8 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+
+
 public class PDFGrafico {
 
     /**
@@ -50,15 +52,15 @@ public class PDFGrafico {
         
         
         //esto es para la fecha
-        String date_s = "2011-01-18";
+        String date_s = "2020-12-15";
         SimpleDateFormat dt = new SimpleDateFormat("yyyy-MM-dd");
         Date date = dt.parse(date_s);
         
-        
+        java.sql.Date sqlDate =  java.sql.Date.valueOf("2011-01-18");
 
-        Curriculum c = new Curriculum(1, "nombre", "apellido", "rut", date, "nacionalidad", "estadoCivil", true, "telefono", "correo", "direccion", "nivelDeEstudio", "ocupacion", "disponibilidad");
+        Curriculum c = new Curriculum(1, "nombre", "apellido", "123", sqlDate, "nacionalidad", "estadoCivil", true, "telefono", "correo", "direccion", "nivelDeEstudio", "ocupacion", "disponibilidad");
 
-        Experiencia e = new Experiencia(1, "algun lugar", "algun cargo", date, date, 1);
+        Experiencia e = new Experiencia(1, "algun lugar", "algun cargo", sqlDate, sqlDate, 1);
         Referencia r = new Referencia(1, "fulano", "de tal", "un cargo cualquiera", "234234213", 1);
 
         ConocimientoDeInformatica_curriculum cInfCurr = new ConocimientoDeInformatica_curriculum(1, coIn.getId(), 1);

@@ -24,7 +24,7 @@ public class DAO_experiencia extends Conexion implements DAO<Experiencia>{
 
     @Override
     public void create(Experiencia obj) throws SQLException {
-       ejecutar("INSERT INTO EXPERIENCIA VALUES (NULL, '"+obj.getLugar()+"', '"+obj.getCargo()+"', '2020-08-08', '2020-08-08', "+obj.getCurriculumFK()+")    ;");
+       ejecutar("INSERT INTO EXPERIENCIA VALUES (NULL, '"+obj.getLugar()+"', '"+obj.getCargo()+"', '"+obj.getFechaDeInicio()+"', '"+obj.getFechaDeTermino()+"', "+obj.getCurriculumFK()+")    ;");
         
         
     }
