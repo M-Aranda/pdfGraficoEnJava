@@ -30,7 +30,7 @@ import java.util.Date;
 
 
 
-public class PDFGrafico {
+public class GUI {
 
     /**
      * @param args the command line arguments
