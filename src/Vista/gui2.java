@@ -5,6 +5,7 @@
  */
 package Vista;
 
+import Modelo.Curriculum;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.DefaultComboBoxModel;
@@ -23,6 +24,8 @@ public class gui2 extends javax.swing.JFrame {
     private List<String> nivelesDeEstudio;
     private List<String> ocupaciones;
     private List<String> disponibilidades;
+
+    public static Curriculum c;
 
     public gui2() {
         initComponents();
@@ -69,8 +72,9 @@ public class gui2 extends javax.swing.JFrame {
         disponibilidades.add("Matutina");
         disponibilidades.add("Nocturna");
         disponibilidades.add("Todas las anteriores");
-        
+
         rellenarComboboxes();
+        rbtMasculino.setSelected(true);
 
     }
 
@@ -83,7 +87,7 @@ public class gui2 extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        buttonGroup1 = new javax.swing.ButtonGroup();
+        btnGroupSexo = new javax.swing.ButtonGroup();
         lblNombre = new javax.swing.JLabel();
         txtNombre = new javax.swing.JTextField();
         txtApellido = new javax.swing.JTextField();
@@ -102,14 +106,15 @@ public class gui2 extends javax.swing.JFrame {
         lblDisponibilidad = new javax.swing.JLabel();
         cboNacionalidad = new javax.swing.JComboBox();
         cboEstadoCivil = new javax.swing.JComboBox();
-        jRadioButton1 = new javax.swing.JRadioButton();
-        jRadioButton2 = new javax.swing.JRadioButton();
+        rbtMasculino = new javax.swing.JRadioButton();
+        rbtFemenino = new javax.swing.JRadioButton();
         txtTelefono = new javax.swing.JTextField();
         txtCorreo = new javax.swing.JTextField();
         txtDireccion = new javax.swing.JTextField();
         cboNivelDeEstudio = new javax.swing.JComboBox();
         cboDisponibilidad = new javax.swing.JComboBox();
         cboOcupacion = new javax.swing.JComboBox();
+        btn_crearPdf = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -155,15 +160,24 @@ public class gui2 extends javax.swing.JFrame {
 
         cboEstadoCivil.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
-        jRadioButton1.setText("jRadioButton1");
+        btnGroupSexo.add(rbtMasculino);
+        rbtMasculino.setText("Masculino");
 
-        jRadioButton2.setText("jRadioButton2");
+        btnGroupSexo.add(rbtFemenino);
+        rbtFemenino.setText("Femenino");
 
         cboNivelDeEstudio.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         cboDisponibilidad.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         cboOcupacion.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+        btn_crearPdf.setText("Crear PDF");
+        btn_crearPdf.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_crearPdfActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -190,15 +204,16 @@ public class gui2 extends javax.swing.JFrame {
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(txtTelefono, javax.swing.GroupLayout.DEFAULT_SIZE, 116, Short.MAX_VALUE)
                                     .addComponent(txtCorreo)))
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                    .addComponent(lblOcupacion)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(cboOcupacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                    .addComponent(lblDisponibilidad)
-                                    .addGap(18, 18, 18)
-                                    .addComponent(cboDisponibilidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(lblOcupacion)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 70, Short.MAX_VALUE)
+                                .addComponent(cboOcupacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(lblDisponibilidad)
+                                .addGap(18, 18, 18)
+                                .addComponent(cboDisponibilidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(216, 216, 216)
+                        .addComponent(btn_crearPdf)
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -207,7 +222,7 @@ public class gui2 extends javax.swing.JFrame {
                                     .addGroup(layout.createSequentialGroup()
                                         .addComponent(lblSexo)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(jRadioButton1))
+                                        .addComponent(rbtMasculino))
                                     .addGroup(layout.createSequentialGroup()
                                         .addComponent(lblEstadoCivil)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -217,7 +232,7 @@ public class gui2 extends javax.swing.JFrame {
                                         .addGap(34, 34, 34)
                                         .addComponent(cboNacionalidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                 .addGap(18, 18, 18)
-                                .addComponent(jRadioButton2))
+                                .addComponent(rbtFemenino))
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                 .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                                     .addComponent(lblRut)
@@ -232,7 +247,7 @@ public class gui2 extends javax.swing.JFrame {
                                     .addComponent(lblNombre)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                     .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addContainerGap(499, Short.MAX_VALUE))))
+                        .addContainerGap(521, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -262,8 +277,8 @@ public class gui2 extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblSexo)
-                    .addComponent(jRadioButton1)
-                    .addComponent(jRadioButton2))
+                    .addComponent(rbtMasculino)
+                    .addComponent(rbtFemenino))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lblTelefono)
@@ -287,7 +302,8 @@ public class gui2 extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblDisponibilidad)
-                    .addComponent(cboDisponibilidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(cboDisponibilidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btn_crearPdf))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -301,6 +317,44 @@ public class gui2 extends javax.swing.JFrame {
     private void txtApellidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtApellidoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtApellidoActionPerformed
+
+    private void btn_crearPdfActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_crearPdfActionPerformed
+        // TODO add your handling code here:
+
+        String nombre = txtNombre.getText();
+        String apellido = txtApellido.getText();
+        String rut = txtRut.getText();
+        String correo = txtCorreo.getText();
+        String telefono = txtTelefono.getText();
+        String direccion = txtDireccion.getText();
+        Boolean esHombre = true;
+
+        if (rbtFemenino.isSelected()) {
+            esHombre = false;
+        }
+
+        //Date fechaDeNacimiento = ;
+        String nacionalidad = cboNacionalidad.getSelectedItem().toString();
+        String esttadoCivil = cboEstadoCivil.getSelectedItem().toString();
+        String nivelDeEstudio = cboNivelDeEstudio.getSelectedItem().toString();
+        String ocupacion = cboOcupacion.getSelectedItem().toString();
+        String disponibilidad = cboDisponibilidad.getSelectedItem().toString();
+
+        c = new Curriculum();
+        c.setNombre(nombre);
+        c.setApellido(apellido);
+        c.setRut(rut);
+        c.setCorreo(correo);
+        c.setTelefono(telefono);
+        c.setDireccion(direccion);
+        c.setEsHombre(esHombre);
+        //c.setFechaNacimiento(fechaDeNacimiento);
+        c.setNacionalidad(nacionalidad);
+        c.setEstadoCivil(esttadoCivil);
+        c.setNivelDeEstudio(nivelDeEstudio);
+        c.setOcupación(ocupacion);
+        c.setDisponibilidad(disponibilidad);
+    }//GEN-LAST:event_btn_crearPdfActionPerformed
 
     /**
      * @param args the command line arguments
@@ -349,7 +403,7 @@ public class gui2 extends javax.swing.JFrame {
         }
 
         for (String estadoCivil : estadosCiviles) {
-                cboEstadoCivil.addItem(estadoCivil);
+            cboEstadoCivil.addItem(estadoCivil);
         }
 
         for (String nacionalidad : nacionalidades) {
@@ -357,24 +411,23 @@ public class gui2 extends javax.swing.JFrame {
         }
 
         for (String nivelDeEstudio : nivelesDeEstudio) {
-                cboNivelDeEstudio.addItem(nivelDeEstudio);
+            cboNivelDeEstudio.addItem(nivelDeEstudio);
         }
 
         for (String ocupacion : ocupaciones) {
-                    cboOcupacion.addItem(ocupacion);
+            cboOcupacion.addItem(ocupacion);
         }
 
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.ButtonGroup buttonGroup1;
+    private javax.swing.ButtonGroup btnGroupSexo;
+    private javax.swing.JButton btn_crearPdf;
     private javax.swing.JComboBox cboDisponibilidad;
     private javax.swing.JComboBox cboEstadoCivil;
     private javax.swing.JComboBox cboNacionalidad;
     private javax.swing.JComboBox cboNivelDeEstudio;
     private javax.swing.JComboBox cboOcupacion;
-    private javax.swing.JRadioButton jRadioButton1;
-    private javax.swing.JRadioButton jRadioButton2;
     private javax.swing.JLabel lblApellido;
     private javax.swing.JLabel lblCorreo;
     private javax.swing.JLabel lblDireccion;
@@ -388,6 +441,8 @@ public class gui2 extends javax.swing.JFrame {
     private javax.swing.JLabel lblRut;
     private javax.swing.JLabel lblSexo;
     private javax.swing.JLabel lblTelefono;
+    private javax.swing.JRadioButton rbtFemenino;
+    private javax.swing.JRadioButton rbtMasculino;
     private javax.swing.JTextField txtApellido;
     private javax.swing.JTextField txtCorreo;
     private javax.swing.JTextField txtDireccion;
