@@ -5,6 +5,7 @@
  */
 package Vista;
 
+import Controlador.CrearPDFHandler;
 import Modelo.Curriculum;
 import java.util.ArrayList;
 import java.util.List;
@@ -18,14 +19,16 @@ public class gui2 extends javax.swing.JFrame {
 
     /**
      * Creates new form gui2
-     */
+    */
+    public static Curriculum c;
+    
     private List<String> nacionalidades;
     private List<String> estadosCiviles;
     private List<String> nivelesDeEstudio;
     private List<String> ocupaciones;
     private List<String> disponibilidades;
 
-    public static Curriculum c;
+    
 
     public gui2() {
         initComponents();
@@ -63,7 +66,7 @@ public class gui2 extends javax.swing.JFrame {
 
         ocupaciones.add("Desocupado");
         ocupaciones.add("Estudiante");
-        ocupaciones.add("Estudiante con trabajo a tiempo parcia");
+        ocupaciones.add("Estudiante con trabajo a tiempo parcial");
         ocupaciones.add("Estudiante con trabajo a tiempo completo");
         ocupaciones.add("Trabajador a tiempo parcial");
         ocupaciones.add("Trabajador a tiempo completo");
@@ -354,6 +357,9 @@ public class gui2 extends javax.swing.JFrame {
         c.setNivelDeEstudio(nivelDeEstudio);
         c.setOcupación(ocupacion);
         c.setDisponibilidad(disponibilidad);
+        c.setDireccion(direccion);
+        
+        CrearPDFHandler.crearArchivoDePDF();
     }//GEN-LAST:event_btn_crearPdfActionPerformed
 
     /**
