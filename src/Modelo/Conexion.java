@@ -22,9 +22,12 @@ public class Conexion {
     private final Connection con;
 
     public Conexion(String bd) throws ClassNotFoundException, SQLException {
+        //debería cambiar estos parametros
         String url = "jdbc:mysql://localhost/" + bd + "?user=root&password=";
+       //String url = "mysql-connector-javal://localhost/" + bd + "?user=root&password=";
         System.out.println(url);
         Class.forName("com.mysql.jdbc.Driver");
+        //Class.forName("mysql-connector-java");
         con = DriverManager.getConnection(url);
     }
 

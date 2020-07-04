@@ -14,18 +14,16 @@ import java.util.Date;
 public class Experiencia {
     private int id;
     private String lugar,cargo;
-    private Date fechaDeInicio,fechaDeTermino;
-    private int curriculumFK;
+    private int aniosTrabajando, curriculumFK;
 
     public Experiencia() {
     }
 
-    public Experiencia(int id, String lugar, String cargo, Date fechaDeInicio, Date fechaDeTermino, int curriculumFK) {
+    public Experiencia(int id, String lugar, String cargo, int aniosTrabajando, int curriculumFK) {
         this.id = id;
         this.lugar = lugar;
         this.cargo = cargo;
-        this.fechaDeInicio = fechaDeInicio;
-        this.fechaDeTermino = fechaDeTermino;
+        this.aniosTrabajando = aniosTrabajando;
         this.curriculumFK = curriculumFK;
     }
 
@@ -53,20 +51,12 @@ public class Experiencia {
         this.cargo = cargo;
     }
 
-    public Date getFechaDeInicio() {
-        return fechaDeInicio;
+    public int getAniosTrabajando() {
+        return aniosTrabajando;
     }
 
-    public void setFechaDeInicio(Date fechaDeInicio) {
-        this.fechaDeInicio = fechaDeInicio;
-    }
-
-    public Date getFechaDeTermino() {
-        return fechaDeTermino;
-    }
-
-    public void setFechaDeTermino(Date fechaDeTermino) {
-        this.fechaDeTermino = fechaDeTermino;
+    public void setAniosTrabajando(int aniosTrabajando) {
+        this.aniosTrabajando = aniosTrabajando;
     }
 
     public int getCurriculumFK() {
@@ -79,13 +69,12 @@ public class Experiencia {
 
     @Override
     public String toString() {
-        return "Experiencia{" + "id=" + id + ", lugar=" + lugar + ", cargo=" + cargo + ", fechaDeInicio=" + fechaDeInicio + ", fechaDeTermino=" + fechaDeTermino + ", curriculumFK=" + curriculumFK + '}';
+        return "Experiencia{" + "id=" + id + ", lugar=" + lugar + ", cargo=" + cargo + ", aniosTrabajando=" + aniosTrabajando + ", curriculumFK=" + curriculumFK + '}';
     }
     
     
 
-   
-    
+ 
     
     
 }

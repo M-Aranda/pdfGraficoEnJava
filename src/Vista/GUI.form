@@ -111,25 +111,58 @@
                   <Group type="102" attributes="0">
                       <EmptySpace min="-2" pref="23" max="-2" attributes="0"/>
                       <Component id="lblFechaDeNacimiento" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace pref="22" max="32767" attributes="0"/>
+                      <EmptySpace max="32767" attributes="0"/>
                       <Component id="calendar" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="145" max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="116" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" attributes="0">
-                              <Component id="lblIdiomas" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace type="separate" max="-2" attributes="0"/>
-                              <Component id="cboIdiomas" min="-2" max="-2" attributes="0"/>
+                          <Group type="102" alignment="0" attributes="0">
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Group type="102" alignment="0" attributes="0">
+                                      <Component id="lblExperiencia" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                      <Component id="txtCargoExperiencia" min="-2" pref="72" max="-2" attributes="0"/>
+                                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                      <Component id="lblAñosExperiencia" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace max="-2" attributes="0"/>
+                                      <Component id="jSpinner1" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                                      <Component id="btnAgregarExperiencia" min="-2" max="-2" attributes="0"/>
+                                  </Group>
+                                  <Group type="102" attributes="0">
+                                      <Component id="lblIdiomas" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                                      <Component id="cboIdiomas" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                                      <Component id="btnAgregarIdioma" min="-2" max="-2" attributes="0"/>
+                                  </Group>
+                                  <Group type="102" alignment="0" attributes="0">
+                                      <Component id="lblConocimientosDeInformatica" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace min="-2" pref="3" max="-2" attributes="0"/>
+                                      <Component id="cboConInfo" min="-2" pref="64" max="-2" attributes="0"/>
+                                      <EmptySpace min="-2" pref="53" max="-2" attributes="0"/>
+                                      <Component id="btnAgregarConocimientoInformatica" min="-2" max="-2" attributes="0"/>
+                                  </Group>
+                              </Group>
+                              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                           </Group>
-                          <Group type="102" attributes="0">
-                              <Component id="lblConocimientosDeInformatica" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace min="-2" pref="22" max="-2" attributes="0"/>
-                              <Component id="cboConInfo" min="-2" pref="64" max="-2" attributes="0"/>
+                          <Group type="102" alignment="0" attributes="0">
+                              <Component id="lblReferencias" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="txtNombreReferencia" min="-2" pref="71" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="txtApellidoReferencia" min="-2" pref="70" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="txtCargoReferencia" min="-2" pref="71" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="txtTelefonoReferencia" min="-2" pref="70" max="-2" attributes="0"/>
+                              <EmptySpace pref="78" max="32767" attributes="0"/>
+                              <Component id="btnAgregarReferencia" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
-                      <EmptySpace max="32767" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
                   </Group>
               </Group>
           </Group>
@@ -173,6 +206,7 @@
                           <Component id="rbtFemenino" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="lblIdiomas" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="cboIdiomas" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="btnAgregarIdioma" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
@@ -194,22 +228,37 @@
                       </Group>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="17" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="lblConocimientosDeInformatica" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="cboConInfo" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="btnAgregarConocimientoInformatica" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
               </Group>
-              <EmptySpace min="-2" pref="17" max="-2" attributes="0"/>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="lblExperiencia" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="jSpinner1" alignment="0" min="-2" max="-2" attributes="0"/>
+                  <Component id="txtCargoExperiencia" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="lblAñosExperiencia" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="btnAgregarExperiencia" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace min="-2" pref="2" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="lblDireccion" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="txtDireccion" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="lblNivelDeEstudio" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="cboNivelDeEstudio" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="lblReferencias" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="txtNombreReferencia" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="txtApellidoReferencia" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="txtCargoReferencia" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="txtTelefonoReferencia" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="btnAgregarReferencia" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
@@ -222,7 +271,7 @@
                   <Component id="cboDisponibilidad" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="btn_crearPdf" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace pref="21" max="32767" attributes="0"/>
+              <EmptySpace pref="73" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -429,6 +478,93 @@
             <StringItem index="3" value="Item 4"/>
           </StringArray>
         </Property>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="lblExperiencia">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Experiencia laboral:"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="lblReferencias">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Referencias:"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JButton" name="btnAgregarIdioma">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Agregar"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnAgregarIdiomaActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="btnAgregarConocimientoInformatica">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Agregar"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnAgregarConocimientoInformaticaActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JTextField" name="txtNombreReferencia">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Nombre?"/>
+        <Property name="toolTipText" type="java.lang.String" value="Nombre:"/>
+      </Properties>
+      <Events>
+        <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="alClickear"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtNombreReferenciaActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JTextField" name="txtApellidoReferencia">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Apellido?"/>
+        <Property name="toolTipText" type="java.lang.String" value="Apellido:"/>
+      </Properties>
+      <Events>
+        <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="referenciaApellidoFocusGained"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JTextField" name="txtCargoReferencia">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Cargo?"/>
+        <Property name="toolTipText" type="java.lang.String" value="Cargo"/>
+      </Properties>
+      <Events>
+        <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="referenciaCargoFocusGained"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JTextField" name="txtTelefonoReferencia">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Tel&#xe9;fono?"/>
+        <Property name="toolTipText" type="java.lang.String" value="Tel&#xe9;fono:"/>
+      </Properties>
+      <Events>
+        <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="txtTelefonoReferenciaFocusGained"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JSpinner" name="jSpinner1">
+    </Component>
+    <Component class="javax.swing.JTextField" name="txtCargoExperiencia">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Cargo?"/>
+        <Property name="toolTipText" type="java.lang.String" value="Cargo desempe&#xf1;ado:"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="lblA&#xf1;osExperiencia">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="A&#xf1;os:"/>
+        <Property name="toolTipText" type="java.lang.String" value=""/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JButton" name="btnAgregarExperiencia">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Agregar"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JButton" name="btnAgregarReferencia">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Agregar"/>
       </Properties>
     </Component>
   </SubComponents>

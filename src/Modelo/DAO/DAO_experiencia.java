@@ -18,13 +18,13 @@ import java.util.List;
  */
 public class DAO_experiencia extends Conexion implements DAO<Experiencia>{
 
-    public DAO_experiencia(String bd) throws ClassNotFoundException, SQLException {
+    public DAO_experiencia() throws ClassNotFoundException, SQLException {
         super("curriculumaPDF");
     }
 
     @Override
     public void create(Experiencia obj) throws SQLException {
-       ejecutar("INSERT INTO EXPERIENCIA VALUES (NULL, '"+obj.getLugar()+"', '"+obj.getCargo()+"', '"+obj.getFechaDeInicio()+"', '"+obj.getFechaDeTermino()+"', "+obj.getCurriculumFK()+")    ;");
+       ejecutar("INSERT INTO EXPERIENCIA VALUES (NULL, '"+obj.getLugar()+"', '"+obj.getCargo()+"', "+obj.getAniosTrabajando()+", "+obj.getCurriculumFK()+")    ;");
         
         
     }
@@ -39,7 +39,7 @@ public class DAO_experiencia extends Conexion implements DAO<Experiencia>{
         
         while (rs.next()){
             try {
-                experiencia = new Experiencia (rs.getInt(1), rs.getString(2),rs.getString(3), rs.getDate(4), rs.getDate(5), rs.getInt(6));
+                experiencia = new Experiencia (rs.getInt(1), rs.getString(2),rs.getString(3), rs.getInt(4), rs.getInt(5));
                 experiencias.add(experiencia);
             } catch (Exception e) {
             }
@@ -52,7 +52,7 @@ public class DAO_experiencia extends Conexion implements DAO<Experiencia>{
     @Override
     public void update(Experiencia obj) throws SQLException {
        
-        ejecutar("UPDATE EXPERIENCIA SET lugar ='"+obj.getLugar()+"', cargo = '"+obj.getCargo()+"', fechaDeInicio = "+obj.getFechaDeInicio()+", fechaDeTermino = "+obj.getFechaDeTermino()+", "+obj.getCurriculumFK()+"    WHERE id ="+obj.getId()+";");
+        ejecutar("UPDATE EXPERIENCIA SET lugar ='"+obj.getLugar()+"', cargo = '"+obj.getCargo()+"', aniosTrabajando = "+obj.getAniosTrabajando()+", "+obj.getCurriculumFK()+"    WHERE id ="+obj.getId()+";");
         
         
         
@@ -72,7 +72,7 @@ public class DAO_experiencia extends Conexion implements DAO<Experiencia>{
         
         while (rs.next()){
             try {
-                experiencia = new Experiencia (rs.getInt(1), rs.getString(2),rs.getString(3), rs.getDate(4), rs.getDate(5), rs.getInt(6));
+                experiencia = new Experiencia (rs.getInt(1), rs.getString(2),rs.getString(3), rs.getInt(4), rs.getInt(5));
                 
             } catch (Exception e) {
             }

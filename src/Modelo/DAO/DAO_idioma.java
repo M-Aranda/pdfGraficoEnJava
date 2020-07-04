@@ -71,5 +71,24 @@ public class DAO_idioma extends Conexion implements DAO<Idioma> {
 
         return idioma;
     }
+    
+    
+        public Idioma findByName(String nombre) throws SQLException {
+
+        ResultSet rs = ejecutar("SELECT * FROM IDIOMA WHERE nombre = '" + nombre + "'");
+
+        Idioma idioma = null;
+        while (rs.next()) {
+            try {
+                idioma = new Idioma(rs.getInt(1), rs.getString(2));
+            } catch (Exception e) {
+            }
+        }
+        close();
+
+        return idioma;
+    }
+    
+   
 
 }

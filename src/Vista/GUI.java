@@ -20,10 +20,9 @@ import java.util.Date;
 import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.DefaultComboBoxModel;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -35,7 +34,7 @@ public class GUI extends javax.swing.JFrame {
      * Creates new form GUI
      */
     public static Curriculum c;
-    
+
     public static List<ConocimientoDeInformatica> conocimientosDeInformaticaSeleccionados;
     public static List<Idioma> idiomasSeleccionados;
 
@@ -66,14 +65,12 @@ public class GUI extends javax.swing.JFrame {
         ocupaciones = new ArrayList<String>();
         disponibilidades = new ArrayList<String>();
 
-
-
         rellenarComboboxes();
         calendar.setSelectedDate(LocalDate.now());
         rbtMasculino.setSelected(true);
-        
-        crearRespaldoBD();
 
+        idiomasSeleccionados = new ArrayList<>();
+        conocimientosDeInformaticaSeleccionados = new ArrayList<>();
 
     }
 
@@ -119,6 +116,19 @@ public class GUI extends javax.swing.JFrame {
         lblConocimientosDeInformatica = new javax.swing.JLabel();
         cboIdiomas = new javax.swing.JComboBox();
         cboConInfo = new javax.swing.JComboBox();
+        lblExperiencia = new javax.swing.JLabel();
+        lblReferencias = new javax.swing.JLabel();
+        btnAgregarIdioma = new javax.swing.JButton();
+        btnAgregarConocimientoInformatica = new javax.swing.JButton();
+        txtNombreReferencia = new javax.swing.JTextField();
+        txtApellidoReferencia = new javax.swing.JTextField();
+        txtCargoReferencia = new javax.swing.JTextField();
+        txtTelefonoReferencia = new javax.swing.JTextField();
+        jSpinner1 = new javax.swing.JSpinner();
+        txtCargoExperiencia = new javax.swing.JTextField();
+        lblAñosExperiencia = new javax.swing.JLabel();
+        btnAgregarExperiencia = new javax.swing.JButton();
+        btnAgregarReferencia = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -191,6 +201,71 @@ public class GUI extends javax.swing.JFrame {
 
         cboConInfo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
+        lblExperiencia.setText("Experiencia laboral:");
+
+        lblReferencias.setText("Referencias:");
+
+        btnAgregarIdioma.setText("Agregar");
+        btnAgregarIdioma.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAgregarIdiomaActionPerformed(evt);
+            }
+        });
+
+        btnAgregarConocimientoInformatica.setText("Agregar");
+        btnAgregarConocimientoInformatica.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAgregarConocimientoInformaticaActionPerformed(evt);
+            }
+        });
+
+        txtNombreReferencia.setText("Nombre?");
+        txtNombreReferencia.setToolTipText("Nombre:");
+        txtNombreReferencia.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                alClickear(evt);
+            }
+        });
+        txtNombreReferencia.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtNombreReferenciaActionPerformed(evt);
+            }
+        });
+
+        txtApellidoReferencia.setText("Apellido?");
+        txtApellidoReferencia.setToolTipText("Apellido:");
+        txtApellidoReferencia.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                referenciaApellidoFocusGained(evt);
+            }
+        });
+
+        txtCargoReferencia.setText("Cargo?");
+        txtCargoReferencia.setToolTipText("Cargo");
+        txtCargoReferencia.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                referenciaCargoFocusGained(evt);
+            }
+        });
+
+        txtTelefonoReferencia.setText("Teléfono?");
+        txtTelefonoReferencia.setToolTipText("Teléfono:");
+        txtTelefonoReferencia.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtTelefonoReferenciaFocusGained(evt);
+            }
+        });
+
+        txtCargoExperiencia.setText("Cargo?");
+        txtCargoExperiencia.setToolTipText("Cargo desempeñado:");
+
+        lblAñosExperiencia.setText("Años:");
+        lblAñosExperiencia.setToolTipText("");
+
+        btnAgregarExperiencia.setText("Agregar");
+
+        btnAgregarReferencia.setText("Agregar");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -260,21 +335,50 @@ public class GUI extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(23, 23, 23)
                         .addComponent(lblFechaDeNacimiento)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 22, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(calendar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(145, 145, 145))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(116, 116, 116)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(lblIdiomas)
-                                .addGap(18, 18, 18)
-                                .addComponent(cboIdiomas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(lblExperiencia)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(txtCargoExperiencia, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(lblAñosExperiencia)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(jSpinner1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(btnAgregarExperiencia))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(lblIdiomas)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(cboIdiomas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(btnAgregarIdioma))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(lblConocimientosDeInformatica)
+                                        .addGap(3, 3, 3)
+                                        .addComponent(cboConInfo, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(53, 53, 53)
+                                        .addComponent(btnAgregarConocimientoInformatica)))
+                                .addGap(0, 0, Short.MAX_VALUE))
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(lblConocimientosDeInformatica)
-                                .addGap(22, 22, 22)
-                                .addComponent(cboConInfo, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                                .addComponent(lblReferencias)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtNombreReferencia, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtApellidoReferencia, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtCargoReferencia, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtTelefonoReferencia, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 78, Short.MAX_VALUE)
+                                .addComponent(btnAgregarReferencia)))
+                        .addContainerGap())))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -308,7 +412,8 @@ public class GUI extends javax.swing.JFrame {
                             .addComponent(rbtMasculino)
                             .addComponent(rbtFemenino)
                             .addComponent(lblIdiomas)
-                            .addComponent(cboIdiomas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(cboIdiomas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnAgregarIdioma)))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(calendar, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -323,18 +428,32 @@ public class GUI extends javax.swing.JFrame {
                             .addComponent(lblCorreo)
                             .addComponent(txtCorreo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
+                        .addGap(17, 17, 17)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(lblConocimientosDeInformatica)
-                            .addComponent(cboConInfo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGap(17, 17, 17)
+                            .addComponent(cboConInfo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnAgregarConocimientoInformatica))))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblExperiencia)
+                    .addComponent(jSpinner1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtCargoExperiencia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblAñosExperiencia)
+                    .addComponent(btnAgregarExperiencia))
+                .addGap(2, 2, 2)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblDireccion)
                     .addComponent(txtDireccion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblNivelDeEstudio)
-                    .addComponent(cboNivelDeEstudio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(cboNivelDeEstudio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblReferencias)
+                    .addComponent(txtNombreReferencia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtApellidoReferencia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtCargoReferencia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtTelefonoReferencia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnAgregarReferencia))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblOcupacion)
@@ -344,7 +463,7 @@ public class GUI extends javax.swing.JFrame {
                     .addComponent(lblDisponibilidad)
                     .addComponent(cboDisponibilidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btn_crearPdf))
-                .addContainerGap(21, Short.MAX_VALUE))
+                .addContainerGap(73, Short.MAX_VALUE))
         );
 
         pack();
@@ -404,6 +523,7 @@ public class GUI extends javax.swing.JFrame {
         GuardarPDFenBDHandler obj = new GuardarPDFenBDHandler();
         try {
             obj.guardarPDF();
+            crearRespaldoBD();
 
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(GUI.class.getName()).log(Level.SEVERE, null, ex);
@@ -412,6 +532,52 @@ public class GUI extends javax.swing.JFrame {
         }
 
     }//GEN-LAST:event_btn_crearPdfActionPerformed
+
+    private void txtNombreReferenciaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNombreReferenciaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtNombreReferenciaActionPerformed
+
+    private void alClickear(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_alClickear
+        txtNombreReferencia.setText("");
+    }//GEN-LAST:event_alClickear
+
+    private void referenciaApellidoFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_referenciaApellidoFocusGained
+        txtApellidoReferencia.setText("");
+    }//GEN-LAST:event_referenciaApellidoFocusGained
+
+    private void referenciaCargoFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_referenciaCargoFocusGained
+        txtCargoReferencia.setText("");
+    }//GEN-LAST:event_referenciaCargoFocusGained
+
+    private void txtTelefonoReferenciaFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtTelefonoReferenciaFocusGained
+        txtTelefonoReferencia.setText("");
+    }//GEN-LAST:event_txtTelefonoReferenciaFocusGained
+
+    private void btnAgregarIdiomaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarIdiomaActionPerformed
+
+        try {
+
+            idiomasSeleccionados.add(di.findByName((String) cboIdiomas.getSelectedItem()));
+
+        } catch (SQLException ex) {
+            Logger.getLogger(GUI.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        JOptionPane.showMessageDialog(null, "Idioma guardado");
+    }//GEN-LAST:event_btnAgregarIdiomaActionPerformed
+
+    private void btnAgregarConocimientoInformaticaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarConocimientoInformaticaActionPerformed
+
+        try {
+
+            conocimientosDeInformaticaSeleccionados.add(dci.findByName((String) cboConInfo.getSelectedItem()));
+
+        } catch (SQLException ex) {
+            Logger.getLogger(GUI.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        JOptionPane.showMessageDialog(null, "Conocimiento de informática guardado");
+
+
+    }//GEN-LAST:event_btnAgregarConocimientoInformaticaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -463,8 +629,8 @@ public class GUI extends javax.swing.JFrame {
         cboOcupacion.removeAllItems();
         cboIdiomas.removeAllItems();
         cboConInfo.removeAllItems();
-        
-                nacionalidades.add("Chilena");
+
+        nacionalidades.add("Chilena");
         nacionalidades.add("Argentina");
         nacionalidades.add("Uruguaya");
         nacionalidades.add("Brasilera");
@@ -500,7 +666,6 @@ public class GUI extends javax.swing.JFrame {
         disponibilidades.add("Matutina");
         disponibilidades.add("Nocturna");
         disponibilidades.add("Todas las anteriores");
-        
 
         for (String disponibilidad : disponibilidades) {
             cboDisponibilidad.addItem(disponibilidad);
@@ -532,56 +697,62 @@ public class GUI extends javax.swing.JFrame {
 
     }
 
-    
-    public void crearRespaldoBD(){
-         try {
+    public void crearRespaldoBD() {
+        try {
 
-        /*NOTE: Getting path to the Jar file being executed*/
-        /*NOTE: YourImplementingClass-> replace with the class executing the code*/
-        CodeSource codeSource = GUI.class.getProtectionDomain().getCodeSource();
-        File jarFile = new File(codeSource.getLocation().toURI().getPath());
-        String jarDir = jarFile.getParentFile().getPath();
+            /*NOTE: Getting path to the Jar file being executed*/
+            /*NOTE: YourImplementingClass-> replace with the class executing the code*/
+            CodeSource codeSource = GUI.class.getProtectionDomain().getCodeSource();
+            File jarFile = new File(codeSource.getLocation().toURI().getPath());
+            String jarDir = jarFile.getParentFile().getPath();
 
 
-        /*NOTE: Creating Database Constraints*/
-        String dbName = "curriculumaPDF";
-        String dbUser = "root";
-        String dbPass = "";
+            /*NOTE: Creating Database Constraints*/
+            String dbName = "curriculumaPDF";
+            String dbUser = "root";
+            String dbPass = "";
 
-        /*NOTE: Creating Path Constraints for folder saving*/
-        /*NOTE: Here the backup folder is created for saving inside it*/
-        String folderPath = jarDir + "\\backup";
+            /*NOTE: Creating Path Constraints for folder saving*/
+            /*NOTE: Here the backup folder is created for saving inside it*/
+            String folderPath = jarDir + "\\backup";
 
-        /*NOTE: Creating Folder if it does not exist*/
-        File f1 = new File(folderPath);
-        f1.mkdir();
+            /*NOTE: Creating Folder if it does not exist*/
+            File f1 = new File(folderPath);
+            f1.mkdir();
 
-        /*NOTE: Creating Path Constraints for backup saving*/
-        /*NOTE: Here the backup is saved in a folder called backup with the name backup.sql*/
-         String savePath = "\"" + jarDir + "\\backup\\" + "backup.sql\"";
+            /*NOTE: Creating Path Constraints for backup saving*/
+            /*NOTE: Here the backup is saved in a folder called backup with the name backup.sql*/
+            String savePath = "\"" + jarDir + "\\backup\\" + "respaldo.sql\"";
 
-        /*NOTE: Used to create a cmd command*/
-        String executeCmd = "mysqldump -u" + dbUser + " -p" + dbPass + " --database " + dbName + " -r " + savePath;
+            /*NOTE: Used to create a cmd command*/
+            String executeCmd = "mysqldump -u" + dbUser + "" + dbPass + " " + dbName + " -r " + savePath; //--database no es necesario,
+            //tuve que agregar la ruta del bin de mysql como variable de entorno
 
-             System.out.println(executeCmd);
-        /*NOTE: Executing the command here*/
-        Process runtimeProcess = Runtime.getRuntime().exec(executeCmd);
-        int processComplete = runtimeProcess.waitFor();
+             //cd C:\Program Files\MySQL\MySQL Server 8.0\bin  mysqldump -uroot curriculumaPDF -r "C:\Users\Chelo\Desktop\pdfGraficoEnJava\build\backup\backup.sql"
+            //mysql -u root -p //hay que quitar el -p, porque mi root no tiene pass
+            //NO OLVIDAR REINICIAR EL PC DESPUÉS DE HABER AGREGADO UNA VARIABLE DE SISTEMA
+            System.out.println(executeCmd);
+            /*NOTE: Executing the command here*/
+            Process runtimeProcess = Runtime.getRuntime().exec(executeCmd);
+            int processComplete = runtimeProcess.waitFor();
 
-        /*NOTE: processComplete=0 if correctly executed, will contain other values if not*/
-        if (processComplete == 0) {
-            System.out.println("Backup Complete");
-        } else {
-            System.out.println("Backup Failure");
+            /*NOTE: processComplete=0 if correctly executed, will contain other values if not*/
+            if (processComplete == 0) {
+                System.out.println("Respaldo completo");
+            } else {
+                System.out.println("Respaldo fallido");
+            }
+
+        } catch (Exception e) {
+
         }
+    }
 
-    } catch (Exception e) {
-        
-        
-    }
-    }
-    
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAgregarConocimientoInformatica;
+    private javax.swing.JButton btnAgregarExperiencia;
+    private javax.swing.JButton btnAgregarIdioma;
+    private javax.swing.JButton btnAgregarReferencia;
     private javax.swing.ButtonGroup btnGroupSexo;
     private javax.swing.JButton btn_crearPdf;
     private com.github.lgooddatepicker.components.CalendarPanel calendar;
@@ -592,28 +763,37 @@ public class GUI extends javax.swing.JFrame {
     private javax.swing.JComboBox cboNacionalidad;
     private javax.swing.JComboBox cboNivelDeEstudio;
     private javax.swing.JComboBox cboOcupacion;
+    private javax.swing.JSpinner jSpinner1;
     private javax.swing.JLabel lblApellido;
+    private javax.swing.JLabel lblAñosExperiencia;
     private javax.swing.JLabel lblConocimientosDeInformatica;
     private javax.swing.JLabel lblCorreo;
     private javax.swing.JLabel lblDireccion;
     private javax.swing.JLabel lblDisponibilidad;
     private javax.swing.JLabel lblEstadoCivil;
+    private javax.swing.JLabel lblExperiencia;
     private javax.swing.JLabel lblFechaDeNacimiento;
     private javax.swing.JLabel lblIdiomas;
     private javax.swing.JLabel lblNacionalidad;
     private javax.swing.JLabel lblNivelDeEstudio;
     private javax.swing.JLabel lblNombre;
     private javax.swing.JLabel lblOcupacion;
+    private javax.swing.JLabel lblReferencias;
     private javax.swing.JLabel lblRut;
     private javax.swing.JLabel lblSexo;
     private javax.swing.JLabel lblTelefono;
     private javax.swing.JRadioButton rbtFemenino;
     private javax.swing.JRadioButton rbtMasculino;
     private javax.swing.JTextField txtApellido;
+    private javax.swing.JTextField txtApellidoReferencia;
+    private javax.swing.JTextField txtCargoExperiencia;
+    private javax.swing.JTextField txtCargoReferencia;
     private javax.swing.JTextField txtCorreo;
     private javax.swing.JTextField txtDireccion;
     private javax.swing.JTextField txtNombre;
+    private javax.swing.JTextField txtNombreReferencia;
     private javax.swing.JTextField txtRut;
     private javax.swing.JTextField txtTelefono;
+    private javax.swing.JTextField txtTelefonoReferencia;
     // End of variables declaration//GEN-END:variables
 }
