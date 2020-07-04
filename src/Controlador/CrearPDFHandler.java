@@ -6,7 +6,7 @@
 package Controlador;
 
 import Modelo.Curriculum;
-import Vista.gui2;
+import Vista.GUI;
 import com.itextpdf.text.Anchor;
 import com.itextpdf.text.BadElementException;
 import com.itextpdf.text.BaseColor;
@@ -33,7 +33,7 @@ import java.io.FileOutputStream;
 public class CrearPDFHandler {
     
        
-    private static Curriculum c = gui2.c ;
+    private static Curriculum c = GUI.c ;
     private static String FILE = System.getProperty("user.home") + "/Desktop/Curriculum generado.pdf";//"c:/Users/Chelo/Desktop/Curriculum generado.pdf";
     private static Font catFont = new Font(Font.FontFamily.TIMES_ROMAN, 18,
             Font.BOLD);
@@ -90,7 +90,7 @@ public class CrearPDFHandler {
         addEmptyLine(preface, 1);
         preface.add(new Paragraph("Rut: " + c.getRut()));
         addEmptyLine(preface, 1);
-       // preface.add(new Paragraph("Fecha de nacimiento: " + fechaNacimiento));
+        preface.add(new Paragraph("Fecha de nacimiento: " + c.getFechaNacimiento().toString()));
         addEmptyLine(preface, 1);
         preface.add(new Paragraph("Nacionalidad: " + c.getNacionalidad()));
         addEmptyLine(preface, 1);

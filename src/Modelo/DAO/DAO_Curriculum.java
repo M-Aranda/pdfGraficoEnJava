@@ -20,7 +20,7 @@ import java.util.List;
  */
 public class DAO_Curriculum extends Conexion implements DAO<Curriculum>{
 
-    public DAO_Curriculum(String bd) throws ClassNotFoundException, SQLException {
+    public DAO_Curriculum() throws ClassNotFoundException, SQLException {
         super("curriculumaPDF");
     }
 
