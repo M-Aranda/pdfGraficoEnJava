@@ -7,6 +7,7 @@ package Vista;
 
 import Controlador.CrearPDFHandler;
 import Controlador.GuardarPDFenBDHandler;
+import Controlador.ManejoDeRespaldo;
 import Modelo.ConocimientoDeInformatica;
 import Modelo.Curriculum;
 import Modelo.DAO.DAO_conocimienoDeInformatica;
@@ -14,8 +15,6 @@ import Modelo.DAO.DAO_idioma;
 import Modelo.Experiencia;
 import Modelo.Idioma;
 import Modelo.Referencia;
-import java.io.File;
-import java.security.CodeSource;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.Date;
@@ -24,6 +23,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
 /**
@@ -53,7 +53,18 @@ public class GUI extends javax.swing.JFrame {
     private List<Idioma> idiomas;
     private List<ConocimientoDeInformatica> conocimientosDeInformatica;
 
+    public static ManejoDeRespaldo regulador;
+
+    private HiloContador hilo1;
+    public static Object cerrojo = new Object();
+
     public GUI() throws ClassNotFoundException, SQLException {
+        //regulador = new ManejoDeRespaldo();
+        hilo1 = new HiloContador();
+        hilo1.start();
+
+
+  
         initComponents();
 
         di = new DAO_idioma(null);
@@ -75,8 +86,10 @@ public class GUI extends javax.swing.JFrame {
         experienciasLaboralesAgregadas = new ArrayList<>();
         referenciasAgregadas = new ArrayList<>();
         idiomasSeleccionados = new ArrayList<>();
-        
         conocimientosDeInformaticaSeleccionados = new ArrayList<>();
+        
+        
+        
 
     }
 
@@ -542,16 +555,16 @@ public class GUI extends javax.swing.JFrame {
         java.sql.Date fechaSQL = new java.sql.Date(fechaDeNacimiento.getTime());
         c.setFechaNacimiento(fechaSQL);
 
-        for (ConocimientoDeInformatica con : conocimientosDeInformaticaSeleccionados) {
-            System.out.println(con.getNombre());
-        }
-
         CrearPDFHandler.crearArchivoDePDF();
         GuardarPDFenBDHandler obj = new GuardarPDFenBDHandler();
         try {
 
             obj.guardarPDF();
-            crearRespaldoBD();
+           // regulador.crearRespaldoBD();
+            conocimientosDeInformaticaSeleccionados.clear();
+            idiomasSeleccionados.clear();
+            referenciasAgregadas.clear();
+            experienciasLaboralesAgregadas.clear();
 
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(GUI.class.getName()).log(Level.SEVERE, null, ex);
@@ -763,57 +776,67 @@ public class GUI extends javax.swing.JFrame {
         }
 
     }
+    
+     public class HiloContador extends Thread {
 
-    public void crearRespaldoBD() {
-        try {
-
-            /*NOTE: Getting path to the Jar file being executed*/
-            /*NOTE: YourImplementingClass-> replace with the class executing the code*/
-            CodeSource codeSource = GUI.class.getProtectionDomain().getCodeSource();
-            File jarFile = new File(codeSource.getLocation().toURI().getPath());
-            String jarDir = jarFile.getParentFile().getPath();
+   
+        private Boolean detenido;
+        private ManejoDeRespaldo mr = GUI.regulador;
 
 
-            /*NOTE: Creating Database Constraints*/
-            String dbName = "curriculumaPDF";
-            String dbUser = "root";
-            String dbPass = "";
 
-            /*NOTE: Creating Path Constraints for folder saving*/
-            /*NOTE: Here the backup folder is created for saving inside it*/
-            String folderPath = jarDir + "\\backup";
+        @Override
+        public void run() {
+            
+            mr = new ManejoDeRespaldo();
+            
+            int i = 0;
+            while (true) {
 
-            /*NOTE: Creating Folder if it does not exist*/
-            File f1 = new File(folderPath);
-            f1.mkdir();
+                try {
+                    detenido = false;
+                    mr.crearRespaldoBD();
+                    //mr.restaurarBD("respaldo.sql");
+                    Thread.sleep(10000);
+                    i++;
 
-            /*NOTE: Creating Path Constraints for backup saving*/
-            /*NOTE: Here the backup is saved in a folder called backup with the name backup.sql*/
-            String savePath = "\"" + jarDir + "\\backup\\" + "respaldo.sql\"";
+                    synchronized (cerrojo) {
+                        if (detenido) {
+                            try {
+                                cerrojo.wait();
+                            } catch (InterruptedException ex) {
+                                Logger.getLogger(HiloContador.class.getName()).log(Level.SEVERE, null, ex);
+                            }
 
-            /*NOTE: Used to create a cmd command*/
-            String executeCmd = "mysqldump -u" + dbUser + "" + dbPass + " " + dbName + " -r " + savePath; //--database no es necesario,
-            //tuve que agregar la ruta del bin de mysql como variable de entorno
+                        }
 
-            //cd C:\Program Files\MySQL\MySQL Server 8.0\bin  mysqldump -uroot curriculumaPDF -r "C:\Users\Chelo\Desktop\pdfGraficoEnJava\build\backup\backup.sql"
-            //mysql -u root -p //hay que quitar el -p, porque mi root no tiene pass
-            //NO OLVIDAR REINICIAR EL PC DESPUÉS DE HABER AGREGADO UNA VARIABLE DE SISTEMA
-            System.out.println(executeCmd);
-            /*NOTE: Executing the command here*/
-            Process runtimeProcess = Runtime.getRuntime().exec(executeCmd);
-            int processComplete = runtimeProcess.waitFor();
+                    }
 
-            /*NOTE: processComplete=0 if correctly executed, will contain other values if not*/
-            if (processComplete == 0) {
-                System.out.println("Respaldo completo");
-            } else {
-                System.out.println("Respaldo fallido");
+                } catch (InterruptedException ex) {
+                    
+                }
+            }
+        }
+
+        
+
+        
+
+        public void detener() {
+            detenido = true;
+        }
+
+        public void resumir() {
+
+            synchronized (cerrojo) {
+                detenido = false;
+                cerrojo.notifyAll();
             }
 
-        } catch (Exception e) {
-
         }
+
     }
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAgregarConocimientoInformatica;
