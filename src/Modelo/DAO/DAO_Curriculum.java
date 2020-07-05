@@ -27,7 +27,7 @@ public class DAO_Curriculum extends Conexion implements DAO<Curriculum> {
     public void create(Curriculum obj) throws SQLException {
 
         //obj.getFechaNacimiento()
-        ejecutar("INSERT INTO CURRICULUM VALUES (NULL, '" + obj.getNombre() + "', '" + obj.getApellido() + "', '" + obj.getRut() + "', '" + obj.getFechaNacimiento() + "',"
+        ejecutar("INSERT INTO CURRICULUM VALUES (NULL, '" + obj.getNombre() + "', '" + obj.getApellido() + "', '" + obj.getRut() + "', '" + obj.getRutaAFoto() + "'  , '" + obj.getFechaNacimiento() + "',"
                 + " '" + obj.getNacionalidad() + "', '" + obj.getEstadoCivil() + "' , " + obj.isEsHombre() + ", '" + obj.getTelefono() + "', '" + obj.getCorreo() + "', '" + obj.getDireccion() + "',"
                 + " '" + obj.getNivelDeEstudio() + "', '" + obj.getOcupación() + "', '" + obj.getDisponibilidad() + "'  );");
 
@@ -43,9 +43,9 @@ public class DAO_Curriculum extends Conexion implements DAO<Curriculum> {
 
         while (rs.next()) {
             try {
-                cur = new Curriculum(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getDate(4), rs.getString(5),
-                        rs.getString(6), rs.getBoolean(7), rs.getString(8), rs.getString(9), rs.getString(10), rs.getString(11),
-                        rs.getString(12), rs.getString(13));
+                cur = new Curriculum(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getDate(6), rs.getString(7),
+                        rs.getString(8), rs.getBoolean(9), rs.getString(10), rs.getString(11), rs.getString(12), rs.getString(13),
+                        rs.getString(14), rs.getString(15));
 
                 listado.add(cur);
             } catch (Exception e) {
@@ -75,9 +75,9 @@ public class DAO_Curriculum extends Conexion implements DAO<Curriculum> {
 
         while (rs.next()) {
             try {
-                obj = new Curriculum(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getDate(4), rs.getString(5),
-                        rs.getString(6), rs.getBoolean(7), rs.getString(8), rs.getString(9), rs.getString(10), rs.getString(11),
-                        rs.getString(12), rs.getString(13));
+                obj = new Curriculum(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getDate(6), rs.getString(7),
+                        rs.getString(8), rs.getBoolean(9), rs.getString(10), rs.getString(11), rs.getString(12), rs.getString(13),
+                        rs.getString(14), rs.getString(15));
             } catch (Exception e) {
             }
         }

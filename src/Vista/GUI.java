@@ -7,7 +7,7 @@ package Vista;
 
 import Controlador.CrearPDFHandler;
 import Controlador.GuardarPDFenBDHandler;
-import Controlador.ManejoDeRespaldo;
+import Controlador.ManejoDeRespaldoHandler;
 import Modelo.ConocimientoDeInformatica;
 import Modelo.Curriculum;
 import Modelo.DAO.DAO_conocimienoDeInformatica;
@@ -15,6 +15,13 @@ import Modelo.DAO.DAO_idioma;
 import Modelo.Experiencia;
 import Modelo.Idioma;
 import Modelo.Referencia;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.net.URISyntaxException;
+import java.nio.channels.FileChannel;
+import java.security.CodeSource;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.Date;
@@ -23,7 +30,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.imageio.ImageIO;
+import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.filechooser.FileFilter;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 /**
  *
@@ -52,15 +64,17 @@ public class GUI extends javax.swing.JFrame {
     private List<Idioma> idiomas;
     private List<ConocimientoDeInformatica> conocimientosDeInformatica;
 
-    public static ManejoDeRespaldo regulador;
+    public static ManejoDeRespaldoHandler regulador;
 
     private HiloParaRespaldar hiloParaRespaldar;
     private HiloParaRestaurar hiloParaRestaurar;
 
     public static Object cerrojo = new Object();
 
+    private String rutaAFoto;
+
     public GUI() throws ClassNotFoundException, SQLException {
-        regulador = new ManejoDeRespaldo();
+        regulador = new ManejoDeRespaldoHandler();
 
         regulador.restaurarBD("respaldo.sql");
 
@@ -68,8 +82,9 @@ public class GUI extends javax.swing.JFrame {
         hiloParaRespaldar = new HiloParaRespaldar();
         hiloParaRespaldar.start();
 
-       //hiloParaRespaldar.start();
+        //hiloParaRespaldar.start();
         initComponents();
+        setearImagenDePrueba();
 
         di = new DAO_idioma(null);
         dci = new DAO_conocimienoDeInformatica(null);
@@ -150,6 +165,7 @@ public class GUI extends javax.swing.JFrame {
         btnAgregarExperiencia = new javax.swing.JButton();
         btnAgregarReferencia = new javax.swing.JButton();
         txtLugarExperiencia = new javax.swing.JTextField();
+        btnFoto = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -299,6 +315,13 @@ public class GUI extends javax.swing.JFrame {
 
         txtLugarExperiencia.setText("Lugar?");
 
+        btnFoto.setText("Subir foto");
+        btnFoto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnFotoActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -361,6 +384,10 @@ public class GUI extends javax.swing.JFrame {
                 .addGap(42, 42, 42)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
+                        .addGap(112, 112, 112)
+                        .addComponent(btn_crearPdf, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(lblReferencias)
@@ -405,12 +432,9 @@ public class GUI extends javax.swing.JFrame {
                                         .addComponent(calendar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addGroup(layout.createSequentialGroup()
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(btnAgregarIdioma)))))
-                        .addContainerGap(233, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(112, 112, 112)
-                        .addComponent(btn_crearPdf, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))))
+                                        .addComponent(btnAgregarIdioma))))
+                            .addComponent(btnFoto))
+                        .addContainerGap(233, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -492,7 +516,8 @@ public class GUI extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblNivelDeEstudio)
-                    .addComponent(cboNivelDeEstudio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(cboNivelDeEstudio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnFoto))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblOcupacion)
@@ -502,7 +527,7 @@ public class GUI extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblDisponibilidad)
                     .addComponent(cboDisponibilidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(53, Short.MAX_VALUE))
+                .addContainerGap(50, Short.MAX_VALUE))
         );
 
         pack();
@@ -537,10 +562,13 @@ public class GUI extends javax.swing.JFrame {
         String ocupacion = cboOcupacion.getSelectedItem().toString();
         String disponibilidad = cboDisponibilidad.getSelectedItem().toString();
 
+        String ruta = rutaAFoto;
+
         c = new Curriculum();
         c.setNombre(nombre);
         c.setApellido(apellido);
         c.setRut(rut);
+        c.setRutaAFoto(ruta);
         c.setCorreo(correo);
         c.setTelefono(telefono);
         c.setDireccion(direccion);
@@ -662,6 +690,59 @@ public class GUI extends javax.swing.JFrame {
         JOptionPane.showMessageDialog(null, "Referencia agregada");
     }//GEN-LAST:event_btnAgregarReferenciaActionPerformed
 
+    private void btnFotoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFotoActionPerformed
+        JFileChooser c = new JFileChooser();
+
+        FileFilter imageFilter = new FileNameExtensionFilter(
+                "Image files", ImageIO.getReaderFileSuffixes());
+
+        c.setFileFilter(imageFilter);
+
+        int rVal = c.showOpenDialog(new JPanel());
+
+        File f = c.getSelectedFile();
+
+        String jarDir = "";
+        try {
+            CodeSource codeSource = GUI.class.getProtectionDomain().getCodeSource();
+            File jarFile = new File(codeSource.getLocation().toURI().getPath());
+            jarDir = jarFile.getParentFile().getPath();
+            jarDir = jarDir + "\\imagenes\\";
+        } catch (Exception e) {
+        }
+
+        File d = new File(jarDir + f.getName());
+        try {
+            copyFile(f, d);
+        } catch (IOException ex) {
+            Logger.getLogger(GUI.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    }//GEN-LAST:event_btnFotoActionPerformed
+
+    private void copyFile(File sourceFile, File destFile) throws IOException {
+        if (!sourceFile.exists()) {
+            return;
+        }
+        if (!destFile.exists()) {
+            destFile.createNewFile();
+        }
+        FileChannel source = null;
+        FileChannel destination = null;
+        source = new FileInputStream(sourceFile).getChannel();
+        destination = new FileOutputStream(destFile).getChannel();
+        if (destination != null && source != null) {
+            destination.transferFrom(source, 0, source.size());
+        }
+        if (source != null) {
+            source.close();
+        }
+        if (destination != null) {
+            destination.close();
+        }
+
+    }
+
     /**
      * @param args the command line arguments
      */
@@ -704,7 +785,19 @@ public class GUI extends javax.swing.JFrame {
         });
     }
 
-    private void rellenarComboboxes() {
+    public void setearImagenDePrueba() {
+        String jarDir = "";
+        try {
+            CodeSource codeSource = GUI.class.getProtectionDomain().getCodeSource();
+            File jarFile = new File(codeSource.getLocation().toURI().getPath());
+            jarDir = jarFile.getParentFile().getPath();
+            jarDir = jarDir + "\\imagenes\\testImg";
+        } catch (Exception e) {
+        }
+        rutaAFoto = jarDir;
+    }
+
+    public void rellenarComboboxes() {
         cboDisponibilidad.removeAllItems();
         cboEstadoCivil.removeAllItems();
         cboNacionalidad.removeAllItems();
@@ -783,12 +876,13 @@ public class GUI extends javax.swing.JFrame {
     public class HiloParaRestaurar extends Thread {
 
         private Boolean detenido;
-        private ManejoDeRespaldo mr = GUI.regulador;
+        private ManejoDeRespaldoHandler mr = GUI.regulador;
+
 
         @Override
         public void run() {
 
-            mr = new ManejoDeRespaldo();
+            mr = new ManejoDeRespaldoHandler();
 
             int i = 0;
             while (true) {
@@ -837,12 +931,12 @@ public class GUI extends javax.swing.JFrame {
     public class HiloParaRespaldar extends Thread {
 
         private Boolean detenido;
-        private ManejoDeRespaldo mr = GUI.regulador;
+        private ManejoDeRespaldoHandler mr = GUI.regulador;
 
         @Override
         public void run() {
 
-            mr = new ManejoDeRespaldo();
+            mr = new ManejoDeRespaldoHandler();
 
             int i = 0;
             while (true) {
@@ -893,6 +987,7 @@ public class GUI extends javax.swing.JFrame {
     private javax.swing.JButton btnAgregarExperiencia;
     private javax.swing.JButton btnAgregarIdioma;
     private javax.swing.JButton btnAgregarReferencia;
+    private javax.swing.JButton btnFoto;
     private javax.swing.ButtonGroup btnGroupSexo;
     private javax.swing.JButton btn_crearPdf;
     private com.github.lgooddatepicker.components.CalendarPanel calendar;

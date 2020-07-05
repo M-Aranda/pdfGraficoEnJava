@@ -15,7 +15,7 @@ import java.util.List;
 public class Curriculum {
     
     private int id;
-    private String nombre, apellido, rut;
+    private String nombre, apellido, rut, rutaAFoto;
     private Date fechaNacimiento;
     private String nacionalidad, estadoCivil;
     private boolean esHombre;
@@ -24,11 +24,12 @@ public class Curriculum {
     public Curriculum() {
     }
 
-    public Curriculum(int id, String nombre, String apellido, String rut, Date fechaNacimiento, String nacionalidad, String estadoCivil, boolean esHombre, String telefono, String correo, String direccion, String nivelDeEstudio, String ocupación, String disponibilidad) {
+    public Curriculum(int id, String nombre, String apellido, String rut, String rutaAFoto, Date fechaNacimiento, String nacionalidad, String estadoCivil, boolean esHombre, String telefono, String correo, String direccion, String nivelDeEstudio, String ocupación, String disponibilidad) {
         this.id = id;
         this.nombre = nombre;
         this.apellido = apellido;
         this.rut = rut;
+        this.rutaAFoto = rutaAFoto;
         this.fechaNacimiento = fechaNacimiento;
         this.nacionalidad = nacionalidad;
         this.estadoCivil = estadoCivil;
@@ -39,7 +40,6 @@ public class Curriculum {
         this.nivelDeEstudio = nivelDeEstudio;
         this.ocupación = ocupación;
         this.disponibilidad = disponibilidad;
-
     }
 
     public int getId() {
@@ -72,6 +72,14 @@ public class Curriculum {
 
     public void setRut(String rut) {
         this.rut = rut;
+    }
+
+    public String getRutaAFoto() {
+        return rutaAFoto;
+    }
+
+    public void setRutaAFoto(String rutaAFoto) {
+        this.rutaAFoto = rutaAFoto;
     }
 
     public Date getFechaNacimiento() {
@@ -154,13 +162,12 @@ public class Curriculum {
         this.disponibilidad = disponibilidad;
     }
 
-   
     @Override
     public String toString() {
-        return "Curriculum{" + "id=" + id + ", nombre=" + nombre + ", apellido=" + apellido + ", rut=" + rut + ", fechaNacimiento=" + fechaNacimiento + ", nacionalidad=" + nacionalidad + ", estadoCivil=" + estadoCivil + ", esHombre=" + esHombre + ", telefono=" + telefono + ", correo=" + correo + ", direccion=" + direccion + ", nivelDeEstudio=" + nivelDeEstudio + ", ocupaci\u00f3n=" + ocupación + ", disponibilidad=" + disponibilidad + " '}";
+        return "Curriculum{" + "id=" + id + ", nombre=" + nombre + ", apellido=" + apellido + ", rut=" + rut + ", rutaAFoto=" + rutaAFoto + ", fechaNacimiento=" + fechaNacimiento + ", nacionalidad=" + nacionalidad + ", estadoCivil=" + estadoCivil + ", esHombre=" + esHombre + ", telefono=" + telefono + ", correo=" + correo + ", direccion=" + direccion + ", nivelDeEstudio=" + nivelDeEstudio + ", ocupaci\u00f3n=" + ocupación + ", disponibilidad=" + disponibilidad + '}';
     }
 
-   
+  
    
     
     

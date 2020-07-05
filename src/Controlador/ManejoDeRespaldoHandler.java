@@ -22,7 +22,7 @@ import javax.swing.JOptionPane;
  *
  * @author Chelo
  */
-public class ManejoDeRespaldo {
+public class ManejoDeRespaldoHandler {
 
     public void crearRespaldoBD() {
         try {

@@ -41,7 +41,7 @@ public class CrearPDFHandler {
     private static java.util.List<Idioma> idiomas = GUI.idiomasSeleccionados;
     private static java.util.List<ConocimientoDeInformatica> conocimientos = GUI.conocimientosDeInformaticaSeleccionados;
 
-    private static String FILE = System.getProperty("user.home") + "/Desktop/Curriculum generado.pdf";//"c:/Users/Chelo/Desktop/Curriculum generado.pdf";
+    private static String FILE = System.getProperty("user.home") + "/Desktop/Curriculum de "+c.getNombre()+".pdf";//"c:/Users/Chelo/Desktop/Curriculum generado.pdf";
     private static Font catFont = new Font(Font.FontFamily.TIMES_ROMAN, 18,
             Font.BOLD);
     private static Font redFont = new Font(Font.FontFamily.TIMES_ROMAN, 12,
