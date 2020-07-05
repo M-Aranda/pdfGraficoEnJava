@@ -55,7 +55,7 @@ CREATE TABLE `conocimientoinformatica_curriculum` (
   KEY `curriculumFK` (`curriculumFK`),
   CONSTRAINT `conocimientoinformatica_curriculum_ibfk_1` FOREIGN KEY (`conInformatica`) REFERENCES `conocimientodeinformatica` (`id`),
   CONSTRAINT `conocimientoinformatica_curriculum_ibfk_2` FOREIGN KEY (`curriculumFK`) REFERENCES `curriculum` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -64,6 +64,7 @@ CREATE TABLE `conocimientoinformatica_curriculum` (
 
 LOCK TABLES `conocimientoinformatica_curriculum` WRITE;
 /*!40000 ALTER TABLE `conocimientoinformatica_curriculum` DISABLE KEYS */;
+INSERT INTO `conocimientoinformatica_curriculum` VALUES (1,1,1),(2,1,2);
 /*!40000 ALTER TABLE `conocimientoinformatica_curriculum` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -91,7 +92,7 @@ CREATE TABLE `curriculum` (
   `disponibilidad` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `rut` (`rut`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -100,6 +101,7 @@ CREATE TABLE `curriculum` (
 
 LOCK TABLES `curriculum` WRITE;
 /*!40000 ALTER TABLE `curriculum` DISABLE KEYS */;
+INSERT INTO `curriculum` VALUES (1,'vbhnfgdhfdgfg','hfgh','fghfghfdgh','2020-07-05','Chilena','Soltero',0,'hf','fdgh','fdghfdgfgh','Básica en curso','Desocupado','Vespertina'),(2,'marcelo','aranda','20898088-2','2020-07-21','Chilena','Soltero',1,'llllll','lllllllll','lllllllll','Básica en curso','Desocupado','Vespertina');
 /*!40000 ALTER TABLE `curriculum` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -119,7 +121,7 @@ CREATE TABLE `experiencia` (
   PRIMARY KEY (`id`),
   KEY `curriculumFK` (`curriculumFK`),
   CONSTRAINT `experiencia_ibfk_1` FOREIGN KEY (`curriculumFK`) REFERENCES `curriculum` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -128,6 +130,7 @@ CREATE TABLE `experiencia` (
 
 LOCK TABLES `experiencia` WRITE;
 /*!40000 ALTER TABLE `experiencia` DISABLE KEYS */;
+INSERT INTO `experiencia` VALUES (1,'Cargo?','Cargo?',0,1),(2,'Cargo?','Cargo?',0,2);
 /*!40000 ALTER TABLE `experiencia` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -171,7 +174,7 @@ CREATE TABLE `idioma_curriculum` (
   KEY `curriculumFK` (`curriculumFK`),
   CONSTRAINT `idioma_curriculum_ibfk_1` FOREIGN KEY (`idiomaFK`) REFERENCES `idioma` (`id`),
   CONSTRAINT `idioma_curriculum_ibfk_2` FOREIGN KEY (`curriculumFK`) REFERENCES `curriculum` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -180,6 +183,7 @@ CREATE TABLE `idioma_curriculum` (
 
 LOCK TABLES `idioma_curriculum` WRITE;
 /*!40000 ALTER TABLE `idioma_curriculum` DISABLE KEYS */;
+INSERT INTO `idioma_curriculum` VALUES (1,1,1),(2,2,2);
 /*!40000 ALTER TABLE `idioma_curriculum` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -200,7 +204,7 @@ CREATE TABLE `referencia` (
   PRIMARY KEY (`id`),
   KEY `curriculumFK` (`curriculumFK`),
   CONSTRAINT `referencia_ibfk_1` FOREIGN KEY (`curriculumFK`) REFERENCES `curriculum` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -209,6 +213,7 @@ CREATE TABLE `referencia` (
 
 LOCK TABLES `referencia` WRITE;
 /*!40000 ALTER TABLE `referencia` DISABLE KEYS */;
+INSERT INTO `referencia` VALUES (1,'Nombre?','gdsfg','dfsgsdf','dfg',1),(2,'Nombre?','Apellido?','Cargo?','Teléfono?',2);
 /*!40000 ALTER TABLE `referencia` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -221,4 +226,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-07-05 16:54:50
+-- Dump completed on 2020-07-05 16:59:25

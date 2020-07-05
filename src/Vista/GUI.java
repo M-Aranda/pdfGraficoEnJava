@@ -66,7 +66,7 @@ public class GUI extends javax.swing.JFrame {
 
         //hiloParaRestaurar = new HiloParaRestaurar();
         hiloParaRespaldar = new HiloParaRespaldar();
-        //hiloParaRespaldar.start();
+        hiloParaRespaldar.start();
 
        //hiloParaRespaldar.start();
         initComponents();
