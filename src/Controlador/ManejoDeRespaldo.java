@@ -12,6 +12,9 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.security.CodeSource;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.Statement;
 import java.util.Arrays;
 import javax.swing.JOptionPane;
 
@@ -74,11 +77,27 @@ public class ManejoDeRespaldo {
 
     public void restaurarBD(String s) {
         try {
+
+//            Connection connection = DriverManager.getConnection(
+//                    "jdbc:mysql://localhost:3306/mysql?zeroDateTimeBehavior=convertToNull",
+//                    "root", ""
+//            );
+//            Statement st = connection.createStatement();
+//            st.executeUpdate("CREATE DATABASE [IF NOT EXISTS] database_name");
+//            st.close();
+            
+            //Este try crea la base de datos que se va a restaurar (tiene que tener el mismo nombre)
+            try {
+                Runtime.getRuntime().exec("mysql -uroot -e \"CREATE DATABASE IF NOT EXISTS curriculumaPDF;\"");
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
             CodeSource codeSource = GUI.class.getProtectionDomain().getCodeSource();
             File jarFile = new File(codeSource.getLocation().toURI().getPath());
             String jarDir = jarFile.getParentFile().getPath();
 
-            
             String dbName = "curriculumaPDF";
             String dbUser = "root";
             String dbPass = "";
@@ -86,13 +105,15 @@ public class ManejoDeRespaldo {
             String restorePath = jarDir + "\\backup" + "\\" + s;
 
             String comando = "mysql -u " + dbUser + " -h localhost  " + dbName + " < " + restorePath;
-            System.out.println("ejecutandose");
             System.out.println(comando);
+
             File f = new File("restore.bat");
             FileOutputStream fos = new FileOutputStream(f);
             fos.write(comando.getBytes());
             fos.close();
             Process run = Runtime.getRuntime().exec("cmd /C start restore.bat ");
+
+            //mysql -u root -e "create database curriculumaPDF"
             try {
                 Runtime.getRuntime().exec("taskkill /f /im cmd.exe");
             } catch (Exception e) {

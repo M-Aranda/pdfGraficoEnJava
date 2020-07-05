@@ -55,18 +55,20 @@ public class GUI extends javax.swing.JFrame {
     public static ManejoDeRespaldo regulador;
 
     private HiloParaRespaldar hiloParaRespaldar;
+    private HiloParaRestaurar hiloParaRestaurar;
+
     public static Object cerrojo = new Object();
 
     public GUI() throws ClassNotFoundException, SQLException {
         regulador = new ManejoDeRespaldo();
+
         regulador.restaurarBD("respaldo.sql");
-       // hiloParaRespaldar = new HiloParaRespaldar();
+
+        //hiloParaRestaurar = new HiloParaRestaurar();
+        hiloParaRespaldar = new HiloParaRespaldar();
         //hiloParaRespaldar.start();
-        
-        //es algo con los hilos... me parece que hay que detener uno y luego empezar el otro
 
-
-  
+       //hiloParaRespaldar.start();
         initComponents();
 
         di = new DAO_idioma(null);
@@ -89,9 +91,6 @@ public class GUI extends javax.swing.JFrame {
         referenciasAgregadas = new ArrayList<>();
         idiomasSeleccionados = new ArrayList<>();
         conocimientosDeInformaticaSeleccionados = new ArrayList<>();
-        
-        
-        
 
     }
 
@@ -395,14 +394,18 @@ public class GUI extends javax.swing.JFrame {
                                 .addComponent(btnAgregarConocimientoInformatica))
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                        .addComponent(cboIdiomas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(lblFechaDeNacimiento))
-                                    .addComponent(lblIdiomas))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                    .addComponent(lblFechaDeNacimiento)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(lblIdiomas)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(cboIdiomas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(btnAgregarIdioma)
-                                    .addComponent(calendar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(2, 2, 2)
+                                        .addComponent(calendar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(btnAgregarIdioma)))))
                         .addContainerGap(233, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(112, 112, 112)
@@ -560,7 +563,7 @@ public class GUI extends javax.swing.JFrame {
         try {
 
             obj.guardarPDF();
-           // regulador.crearRespaldoBD();
+            // regulador.crearRespaldoBD();
             conocimientosDeInformaticaSeleccionados.clear();
             idiomasSeleccionados.clear();
             referenciasAgregadas.clear();
@@ -776,29 +779,26 @@ public class GUI extends javax.swing.JFrame {
         }
 
     }
-    
-     public class HiloParaRespaldar extends Thread {
 
-   
+    public class HiloParaRestaurar extends Thread {
+
         private Boolean detenido;
         private ManejoDeRespaldo mr = GUI.regulador;
 
-
-
         @Override
         public void run() {
-            
+
             mr = new ManejoDeRespaldo();
-            
+
             int i = 0;
             while (true) {
 
                 try {
                     detenido = false;
-                    
-                    mr.crearRespaldoBD();
-                    
-                    Thread.sleep(10000);
+
+                    mr.restaurarBD("respaldo.sql");
+
+                    Thread.sleep(1000);
                     i++;
 
                     synchronized (cerrojo) {
@@ -814,14 +814,10 @@ public class GUI extends javax.swing.JFrame {
                     }
 
                 } catch (InterruptedException ex) {
-                    
+
                 }
             }
         }
-
-        
-
-        
 
         public void detener() {
             detenido = true;
@@ -838,6 +834,59 @@ public class GUI extends javax.swing.JFrame {
 
     }
 
+    public class HiloParaRespaldar extends Thread {
+
+        private Boolean detenido;
+        private ManejoDeRespaldo mr = GUI.regulador;
+
+        @Override
+        public void run() {
+
+            mr = new ManejoDeRespaldo();
+
+            int i = 0;
+            while (true) {
+
+                try {
+                    detenido = false;
+
+                    mr.crearRespaldoBD();
+
+                    Thread.sleep(10000);
+                    i++;
+
+                    synchronized (cerrojo) {
+                        if (detenido) {
+                            try {
+                                cerrojo.wait();
+                            } catch (InterruptedException ex) {
+                                Logger.getLogger(HiloParaRespaldar.class.getName()).log(Level.SEVERE, null, ex);
+                            }
+
+                        }
+
+                    }
+
+                } catch (InterruptedException ex) {
+
+                }
+            }
+        }
+
+        public void detener() {
+            detenido = true;
+        }
+
+        public void resumir() {
+
+            synchronized (cerrojo) {
+                detenido = false;
+                cerrojo.notifyAll();
+            }
+
+        }
+
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAgregarConocimientoInformatica;
