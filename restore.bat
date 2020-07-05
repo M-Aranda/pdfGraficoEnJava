@@ -1,0 +1,1 @@
+mysql -u root -h localhost  curriculumaPDF < C:\Users\Chelo\Desktop\pdfGraficoEnJava\build\backup\respaldo.sql

@@ -8,6 +8,7 @@ package Controlador;
 import Vista.GUI;
 import java.awt.HeadlessException;
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.security.CodeSource;
@@ -19,8 +20,8 @@ import javax.swing.JOptionPane;
  * @author Chelo
  */
 public class ManejoDeRespaldo {
-    
-        public void crearRespaldoBD() {
+
+    public void crearRespaldoBD() {
         try {
 
             /*NOTE: Getting path to the Jar file being executed*/
@@ -70,55 +71,37 @@ public class ManejoDeRespaldo {
 
         }
     }
-    
-    
-    public  void restaurarBD(String s) {
+
+    public void restaurarBD(String s) {
         try {
-            /*NOTE: String s is the mysql file name including the .sql in its name*/
-            /*NOTE: Getting path to the Jar file being executed*/
-            /*NOTE: YourImplementingClass-> replace with the class executing the code*/
             CodeSource codeSource = GUI.class.getProtectionDomain().getCodeSource();
             File jarFile = new File(codeSource.getLocation().toURI().getPath());
             String jarDir = jarFile.getParentFile().getPath();
 
-            /*NOTE: Creating Database Constraints*/
-             String dbName = "curriculumaPDF";
-             String dbUser = "root";
-             String dbPass = "";
+            
+            String dbName = "curriculumaPDF";
+            String dbUser = "root";
+            String dbPass = "";
 
-            /*NOTE: Creating Path Constraints for restoring*/
             String restorePath = jarDir + "\\backup" + "\\" + s;
 
-            /*NOTE: Used to create a cmd command*/
-            /*NOTE: Do not create a single large string, this will cause buffer locking, use string array*/
-            
-            //  mysql -u root -h localhost -p curriculumaPDF < C:\Users\Chelo\Desktop\pdfGraficoEnJava\build\backup\respaldo.sql (si se quita la -p no pide contraseña si es que no la hay)
-            //  mysql -u root -h localhost  curriculumaPDF < C:\Users\Chelo\Desktop\pdfGraficoEnJava\build\backup\respaldo.sql DEBIES USAR ESTO
-            
-            String[] executeCmd = new String[]{"mysql", "-u", dbUser, "-h", "localhost" , dbName, " < ", restorePath};
-            System.out.println(Arrays.asList(executeCmd));
-
-            
-            /*NOTE: processComplete=0 if correctly executed, will contain other values if not*/
-            //Process runtimeProcess = Runtime.getRuntime().exec(executeCmd);
-            
-           Process runtimeProcess = Runtime.getRuntime().exec("start C:\\Users\\Chelo\\Desktop\\restaurar.bat");
-           
-            int processComplete = runtimeProcess.waitFor();
-
-            /*NOTE: processComplete=0 if correctly executed, will contain other values if not*/
-            if (processComplete == 0) {
-                JOptionPane.showMessageDialog(null, "Restauración de BD completa : " + s);
-            } else {
-                JOptionPane.showMessageDialog(null, "Error al restaurar");
+            String comando = "mysql -u " + dbUser + " -h localhost  " + dbName + " < " + restorePath;
+            System.out.println("ejecutandose");
+            System.out.println(comando);
+            File f = new File("restore.bat");
+            FileOutputStream fos = new FileOutputStream(f);
+            fos.write(comando.getBytes());
+            fos.close();
+            Process run = Runtime.getRuntime().exec("cmd /C start restore.bat ");
+            try {
+                Runtime.getRuntime().exec("taskkill /f /im cmd.exe");
+            } catch (Exception e) {
+                e.printStackTrace();
             }
 
-
-        } catch (URISyntaxException | IOException | InterruptedException | HeadlessException ex) {
-            JOptionPane.showMessageDialog(null, "Error at Restoredbfromsql" + ex.getMessage());
+        } catch (Exception e) {
         }
 
     }
-    
-    
+
 }
