@@ -59,9 +59,11 @@ public class GUI extends javax.swing.JFrame {
 
     public GUI() throws ClassNotFoundException, SQLException {
         regulador = new ManejoDeRespaldo();
-        //regulador.restaurarBD("respaldo.sql");
-        hiloParaRespaldar = new HiloParaRespaldar();
-        hiloParaRespaldar.start();
+        regulador.restaurarBD("respaldo.sql");
+       // hiloParaRespaldar = new HiloParaRespaldar();
+        //hiloParaRespaldar.start();
+        
+        //es algo con los hilos... me parece que hay que detener uno y luego empezar el otro
 
 
   
