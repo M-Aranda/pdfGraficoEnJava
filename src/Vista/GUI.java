@@ -11,7 +11,9 @@ import Modelo.ConocimientoDeInformatica;
 import Modelo.Curriculum;
 import Modelo.DAO.DAO_conocimienoDeInformatica;
 import Modelo.DAO.DAO_idioma;
+import Modelo.Experiencia;
 import Modelo.Idioma;
+import Modelo.Referencia;
 import java.io.File;
 import java.security.CodeSource;
 import java.sql.SQLException;
@@ -34,9 +36,10 @@ public class GUI extends javax.swing.JFrame {
      * Creates new form GUI
      */
     public static Curriculum c;
-
     public static List<ConocimientoDeInformatica> conocimientosDeInformaticaSeleccionados;
     public static List<Idioma> idiomasSeleccionados;
+    public static List<Experiencia> experienciasLaboralesAgregadas;
+    public static List<Referencia> referenciasAgregadas;
 
     private List<String> nacionalidades;
     private List<String> estadosCiviles;
@@ -69,7 +72,10 @@ public class GUI extends javax.swing.JFrame {
         calendar.setSelectedDate(LocalDate.now());
         rbtMasculino.setSelected(true);
 
+        experienciasLaboralesAgregadas = new ArrayList<>();
+        referenciasAgregadas = new ArrayList<>();
         idiomasSeleccionados = new ArrayList<>();
+        
         conocimientosDeInformaticaSeleccionados = new ArrayList<>();
 
     }
@@ -124,11 +130,12 @@ public class GUI extends javax.swing.JFrame {
         txtApellidoReferencia = new javax.swing.JTextField();
         txtCargoReferencia = new javax.swing.JTextField();
         txtTelefonoReferencia = new javax.swing.JTextField();
-        jSpinner1 = new javax.swing.JSpinner();
+        spnAnios = new javax.swing.JSpinner();
         txtCargoExperiencia = new javax.swing.JTextField();
         lblAñosExperiencia = new javax.swing.JLabel();
         btnAgregarExperiencia = new javax.swing.JButton();
         btnAgregarReferencia = new javax.swing.JButton();
+        txtLugarExperiencia = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -263,8 +270,20 @@ public class GUI extends javax.swing.JFrame {
         lblAñosExperiencia.setToolTipText("");
 
         btnAgregarExperiencia.setText("Agregar");
+        btnAgregarExperiencia.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAgregarExperienciaActionPerformed(evt);
+            }
+        });
 
         btnAgregarReferencia.setText("Agregar");
+        btnAgregarReferencia.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAgregarReferenciaActionPerformed(evt);
+            }
+        });
+
+        txtLugarExperiencia.setText("Lugar?");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -342,31 +361,6 @@ public class GUI extends javax.swing.JFrame {
                         .addGap(116, 116, 116)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(lblExperiencia)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(txtCargoExperiencia, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(lblAñosExperiencia)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jSpinner1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(btnAgregarExperiencia))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(lblIdiomas)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(cboIdiomas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(btnAgregarIdioma))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(lblConocimientosDeInformatica)
-                                        .addGap(3, 3, 3)
-                                        .addComponent(cboConInfo, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(53, 53, 53)
-                                        .addComponent(btnAgregarConocimientoInformatica)))
-                                .addGap(0, 0, Short.MAX_VALUE))
-                            .addGroup(layout.createSequentialGroup()
                                 .addComponent(lblReferencias)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(txtNombreReferencia, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -376,9 +370,36 @@ public class GUI extends javax.swing.JFrame {
                                 .addComponent(txtCargoReferencia, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(txtTelefonoReferencia, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 78, Short.MAX_VALUE)
-                                .addComponent(btnAgregarReferencia)))
-                        .addContainerGap())))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(btnAgregarReferencia))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(lblExperiencia)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(txtLugarExperiencia, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(txtCargoExperiencia, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(lblAñosExperiencia))
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addGroup(layout.createSequentialGroup()
+                                            .addComponent(lblIdiomas)
+                                            .addGap(18, 18, 18)
+                                            .addComponent(cboIdiomas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addGap(18, 18, 18)
+                                            .addComponent(btnAgregarIdioma))
+                                        .addGroup(layout.createSequentialGroup()
+                                            .addComponent(lblConocimientosDeInformatica)
+                                            .addGap(3, 3, 3)
+                                            .addComponent(cboConInfo, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addGap(53, 53, 53)
+                                            .addComponent(btnAgregarConocimientoInformatica))))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(spnAnios, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 73, Short.MAX_VALUE)
+                                .addComponent(btnAgregarExperiencia)))
+                        .addGap(10, 10, 10))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -434,13 +455,15 @@ public class GUI extends javax.swing.JFrame {
                             .addComponent(cboConInfo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(btnAgregarConocimientoInformatica))))
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblExperiencia)
-                    .addComponent(jSpinner1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtCargoExperiencia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblAñosExperiencia)
-                    .addComponent(btnAgregarExperiencia))
-                .addGap(2, 2, 2)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(spnAnios, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnAgregarExperiencia)
+                        .addComponent(lblAñosExperiencia)
+                        .addComponent(txtCargoExperiencia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtLugarExperiencia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(lblExperiencia))
+                .addGap(3, 3, 3)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblDireccion)
                     .addComponent(txtDireccion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -463,7 +486,7 @@ public class GUI extends javax.swing.JFrame {
                     .addComponent(lblDisponibilidad)
                     .addComponent(cboDisponibilidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btn_crearPdf))
-                .addContainerGap(73, Short.MAX_VALUE))
+                .addContainerGap(72, Short.MAX_VALUE))
         );
 
         pack();
@@ -519,9 +542,14 @@ public class GUI extends javax.swing.JFrame {
         java.sql.Date fechaSQL = new java.sql.Date(fechaDeNacimiento.getTime());
         c.setFechaNacimiento(fechaSQL);
 
+        for (ConocimientoDeInformatica con : conocimientosDeInformaticaSeleccionados) {
+            System.out.println(con.getNombre());
+        }
+
         CrearPDFHandler.crearArchivoDePDF();
         GuardarPDFenBDHandler obj = new GuardarPDFenBDHandler();
         try {
+
             obj.guardarPDF();
             crearRespaldoBD();
 
@@ -530,6 +558,13 @@ public class GUI extends javax.swing.JFrame {
         } catch (SQLException ex) {
             Logger.getLogger(GUI.class.getName()).log(Level.SEVERE, null, ex);
         }
+
+        txtNombre.setText("");
+        txtApellido.setText("");
+        txtRut.setText("");
+        txtTelefono.setText("");
+        txtCorreo.setText("");
+        txtDireccion.setText("");
 
     }//GEN-LAST:event_btn_crearPdfActionPerformed
 
@@ -578,6 +613,38 @@ public class GUI extends javax.swing.JFrame {
 
 
     }//GEN-LAST:event_btnAgregarConocimientoInformaticaActionPerformed
+
+    private void btnAgregarExperienciaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarExperienciaActionPerformed
+        String cargo = txtCargoExperiencia.getText();
+        int anios = (Integer) spnAnios.getValue();
+        String lugar = txtLugarExperiencia.getText();
+        Experiencia e = new Experiencia(anios, cargo, cargo, anios, 0);
+
+        experienciasLaboralesAgregadas.add(e);
+
+        JOptionPane.showMessageDialog(null, "Experiencia agregada");
+        txtCargoExperiencia.setText("Cargo?");
+        txtLugarExperiencia.setText("Lugar?");
+    }//GEN-LAST:event_btnAgregarExperienciaActionPerformed
+
+    private void btnAgregarReferenciaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarReferenciaActionPerformed
+
+        String nombre, apellido, cargo, telefono;
+        nombre = txtNombreReferencia.getText();
+        apellido = txtApellidoReferencia.getText();
+        cargo = txtCargoReferencia.getText();
+        telefono = txtTelefonoReferencia.getText();
+
+        Referencia r = new Referencia(1, nombre, apellido, cargo, telefono, 0);
+
+        referenciasAgregadas.add(r);
+        txtNombreReferencia.setText("Nombre?");
+        txtApellidoReferencia.setText("Apellido?");
+        txtCargoReferencia.setText("Cargo?");
+        txtTelefonoReferencia.setText("Telefono?");
+
+        JOptionPane.showMessageDialog(null, "Referencia agregada");
+    }//GEN-LAST:event_btnAgregarReferenciaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -728,7 +795,7 @@ public class GUI extends javax.swing.JFrame {
             String executeCmd = "mysqldump -u" + dbUser + "" + dbPass + " " + dbName + " -r " + savePath; //--database no es necesario,
             //tuve que agregar la ruta del bin de mysql como variable de entorno
 
-             //cd C:\Program Files\MySQL\MySQL Server 8.0\bin  mysqldump -uroot curriculumaPDF -r "C:\Users\Chelo\Desktop\pdfGraficoEnJava\build\backup\backup.sql"
+            //cd C:\Program Files\MySQL\MySQL Server 8.0\bin  mysqldump -uroot curriculumaPDF -r "C:\Users\Chelo\Desktop\pdfGraficoEnJava\build\backup\backup.sql"
             //mysql -u root -p //hay que quitar el -p, porque mi root no tiene pass
             //NO OLVIDAR REINICIAR EL PC DESPUÉS DE HABER AGREGADO UNA VARIABLE DE SISTEMA
             System.out.println(executeCmd);
@@ -763,7 +830,6 @@ public class GUI extends javax.swing.JFrame {
     private javax.swing.JComboBox cboNacionalidad;
     private javax.swing.JComboBox cboNivelDeEstudio;
     private javax.swing.JComboBox cboOcupacion;
-    private javax.swing.JSpinner jSpinner1;
     private javax.swing.JLabel lblApellido;
     private javax.swing.JLabel lblAñosExperiencia;
     private javax.swing.JLabel lblConocimientosDeInformatica;
@@ -784,12 +850,14 @@ public class GUI extends javax.swing.JFrame {
     private javax.swing.JLabel lblTelefono;
     private javax.swing.JRadioButton rbtFemenino;
     private javax.swing.JRadioButton rbtMasculino;
+    private javax.swing.JSpinner spnAnios;
     private javax.swing.JTextField txtApellido;
     private javax.swing.JTextField txtApellidoReferencia;
     private javax.swing.JTextField txtCargoExperiencia;
     private javax.swing.JTextField txtCargoReferencia;
     private javax.swing.JTextField txtCorreo;
     private javax.swing.JTextField txtDireccion;
+    private javax.swing.JTextField txtLugarExperiencia;
     private javax.swing.JTextField txtNombre;
     private javax.swing.JTextField txtNombreReferencia;
     private javax.swing.JTextField txtRut;

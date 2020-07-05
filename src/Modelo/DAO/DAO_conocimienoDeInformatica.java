@@ -73,7 +73,7 @@ public class DAO_conocimienoDeInformatica extends Conexion implements DAO<Conoci
 
     public ConocimientoDeInformatica findByName(String nombre) throws SQLException {
 
-        ResultSet rs = ejecutar("SELECT * FROM IDIOMA WHERE nombre = '" + nombre + "'");
+        ResultSet rs = ejecutar("SELECT * FROM CONOCIMIENTODEINFORMATICA WHERE nombre = '" + nombre + "'");
 
         ConocimientoDeInformatica conInfo = null;
         while (rs.next()) {

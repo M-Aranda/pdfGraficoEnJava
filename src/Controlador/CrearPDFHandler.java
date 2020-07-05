@@ -5,7 +5,11 @@
  */
 package Controlador;
 
+import Modelo.ConocimientoDeInformatica;
 import Modelo.Curriculum;
+import Modelo.Experiencia;
+import Modelo.Idioma;
+import Modelo.Referencia;
 import Vista.GUI;
 import com.itextpdf.text.Anchor;
 import com.itextpdf.text.BadElementException;
@@ -25,15 +29,18 @@ import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
 import java.io.FileOutputStream;
 
-
 /**
  *
  * @author Chelo
  */
 public class CrearPDFHandler {
-    
-       
-    private static Curriculum c = GUI.c ;
+
+    private static Curriculum c = GUI.c;
+    private static java.util.List<Experiencia> experiencias = GUI.experienciasLaboralesAgregadas;
+    private static java.util.List<Referencia> referencias = GUI.referenciasAgregadas;
+    private static java.util.List<Idioma> idiomas = GUI.idiomasSeleccionados;
+    private static java.util.List<ConocimientoDeInformatica> conocimientos = GUI.conocimientosDeInformaticaSeleccionados;
+
     private static String FILE = System.getProperty("user.home") + "/Desktop/Curriculum generado.pdf";//"c:/Users/Chelo/Desktop/Curriculum generado.pdf";
     private static Font catFont = new Font(Font.FontFamily.TIMES_ROMAN, 18,
             Font.BOLD);
@@ -82,8 +89,6 @@ public class CrearPDFHandler {
          smallBold));
          */
 
-
-
         preface.add(new Paragraph("Nombre: " + c.getNombre()));
         addEmptyLine(preface, 1);
         preface.add(new Paragraph("Apellido: " + c.getApellido()));
@@ -97,12 +102,12 @@ public class CrearPDFHandler {
         preface.add(new Paragraph("Estado civil: " + c.getEstadoCivil()));
         addEmptyLine(preface, 1);
         String hombreOMujer = "";
-        if(c.isEsHombre()){
+        if (c.isEsHombre()) {
             hombreOMujer = "Masculino";
-        }else{
+        } else {
             hombreOMujer = "Femenino";
         }
-        
+
         preface.add(new Paragraph("Género: " + hombreOMujer));
         addEmptyLine(preface, 1);
         preface.add(new Paragraph("Teléfono: " + c.getTelefono()));
@@ -117,13 +122,25 @@ public class CrearPDFHandler {
         addEmptyLine(preface, 1);
         preface.add(new Paragraph("Disponibilidad: " + c.getDisponibilidad()));
         addEmptyLine(preface, 1);
-        //preface.add(new Paragraph("Idiomas: " + idiomas));
+        preface.add(new Paragraph("Idiomas: "));
+        for (Idioma i : idiomas) {
+            preface.add(new Paragraph(i.getNombre()));
+        }
         addEmptyLine(preface, 1);
-        //preface.add(new Paragraph("Referentes: " + referentes));
+        preface.add(new Paragraph("Conocimientos de informática: "));
+        for (ConocimientoDeInformatica con : conocimientos) {
+            preface.add(new Paragraph(con.getNombre()));
+        }
         addEmptyLine(preface, 1);
-        //preface.add(new Paragraph("Conocimientos de informática: " + conInformática));
+        preface.add(new Paragraph("Experiencia laboral: "));
+        for (Experiencia e : experiencias) {
+            preface.add(new Paragraph(e.getLugar() + "," + e.getCargo() + ", durante " + e.getAniosTrabajando() + " años."));
+        }
         addEmptyLine(preface, 1);
-        //preface.add(new Paragraph("Experiencia laboral: " + experienciaLaboral));
+        preface.add(new Paragraph("Referencias: "));
+        for (Referencia r : referencias) {
+            preface.add(new Paragraph(r.getNombre()+" "+r.getApellido()+", "+r.getCargo()+" "+r.getTeléfono()  ));
+        }
 
         /* preface.add(new Paragraph(
          "This document describes something which is very important ",
@@ -230,7 +247,5 @@ public class CrearPDFHandler {
             paragraph.add(new Paragraph(" "));
         }
     }
-    
-    
-    
+
 }

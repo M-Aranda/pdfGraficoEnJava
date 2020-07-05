@@ -71,5 +71,7 @@ public class DAO_conocimientoDeInformatica_curriculum extends Conexion implement
 
         return conInfo_curr;
     }
+    
+    
 
 }
