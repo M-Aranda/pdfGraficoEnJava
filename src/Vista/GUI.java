@@ -603,6 +603,7 @@ public class GUI extends javax.swing.JFrame {
             Logger.getLogger(GUI.class.getName()).log(Level.SEVERE, null, ex);
         }
 
+        JOptionPane.showMessageDialog(null, "Curriculum creado en el escritorio");
         txtNombre.setText("");
         txtApellido.setText("");
         txtRut.setText("");
@@ -877,7 +878,6 @@ public class GUI extends javax.swing.JFrame {
 
         private Boolean detenido;
         private ManejoDeRespaldoHandler mr = GUI.regulador;
-
 
         @Override
         public void run() {

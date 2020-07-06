@@ -92,7 +92,7 @@ CREATE TABLE `curriculum` (
   `disponibilidad` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `rut` (`rut`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -101,6 +101,7 @@ CREATE TABLE `curriculum` (
 
 LOCK TABLES `curriculum` WRITE;
 /*!40000 ALTER TABLE `curriculum` DISABLE KEYS */;
+INSERT INTO `curriculum` VALUES (1,'dsfg','dsfg','dsfgdfg','C:UsersCheloDesktoppdfGraficoEnJavauildimagenes	estImg','2020-07-06','Chilena','Soltero',1,'dsf','gdsfg','dsfgdsfg','Básica en curso','Desocupado','Vespertina'),(2,'gfjhjjjj','ghjgf','jhfgjhgf','C:UsersCheloDesktoppdfGraficoEnJavauildimagenes	estImg','2020-07-06','Chilena','Soltero',1,'jhfg','jhfgjh','gfjhgfjhfgjh','Básica en curso','Desocupado','Vespertina');
 /*!40000 ALTER TABLE `curriculum` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -222,4 +223,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-07-05 18:59:10
+-- Dump completed on 2020-07-06  0:02:13
