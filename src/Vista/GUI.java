@@ -5,6 +5,7 @@
  */
 package Vista;
 
+import Controlador.AgregarImagenAPDFHandler;
 import Controlador.CrearPDFHandler;
 import Controlador.GuardarPDFenBDHandler;
 import Controlador.ManejoDeRespaldoHandler;
@@ -17,8 +18,10 @@ import Modelo.Idioma;
 import Modelo.Referencia;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.net.MalformedURLException;
 import java.net.URISyntaxException;
 import java.nio.channels.FileChannel;
 import java.security.CodeSource;
@@ -603,6 +606,21 @@ public class GUI extends javax.swing.JFrame {
             Logger.getLogger(GUI.class.getName()).log(Level.SEVERE, null, ex);
         }
 
+        //estas 2 lineas  debiesen agregar la foto
+        String rutaAPDF = System.getProperty("user.home") + "/Desktop/Curriculum de " + c.getNombre() + ".pdf";
+        AgregarImagenAPDFHandler ai = new AgregarImagenAPDFHandler();
+
+        
+        //SE CREA EL PDF PERO NO SE PUEDE ABRIR
+//        try {
+//            System.out.println(c.getRutaAFoto());
+//            ai.agregarImagen(rutaAPDF, c.getRutaAFoto());
+//        } catch (FileNotFoundException ex) {
+//            Logger.getLogger(GUI.class.getName()).log(Level.SEVERE, null, ex);
+//        } catch (MalformedURLException ex) {
+//            Logger.getLogger(GUI.class.getName()).log(Level.SEVERE, null, ex);
+//        }
+
         JOptionPane.showMessageDialog(null, "Curriculum creado en el escritorio");
         txtNombre.setText("");
         txtApellido.setText("");
@@ -718,6 +736,7 @@ public class GUI extends javax.swing.JFrame {
         } catch (IOException ex) {
             Logger.getLogger(GUI.class.getName()).log(Level.SEVERE, null, ex);
         }
+        rutaAFoto = d.getAbsolutePath();
 
     }//GEN-LAST:event_btnFotoActionPerformed
 
@@ -792,7 +811,7 @@ public class GUI extends javax.swing.JFrame {
             CodeSource codeSource = GUI.class.getProtectionDomain().getCodeSource();
             File jarFile = new File(codeSource.getLocation().toURI().getPath());
             jarDir = jarFile.getParentFile().getPath();
-            jarDir = jarDir + "\\imagenes\\testImg";
+            jarDir = jarDir + "\\imagenes\\testImg.png";
         } catch (Exception e) {
         }
         rutaAFoto = jarDir;

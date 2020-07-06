@@ -55,7 +55,7 @@ CREATE TABLE `conocimientoinformatica_curriculum` (
   KEY `curriculumFK` (`curriculumFK`),
   CONSTRAINT `conocimientoinformatica_curriculum_ibfk_1` FOREIGN KEY (`conInformatica`) REFERENCES `conocimientodeinformatica` (`id`),
   CONSTRAINT `conocimientoinformatica_curriculum_ibfk_2` FOREIGN KEY (`curriculumFK`) REFERENCES `curriculum` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -64,6 +64,7 @@ CREATE TABLE `conocimientoinformatica_curriculum` (
 
 LOCK TABLES `conocimientoinformatica_curriculum` WRITE;
 /*!40000 ALTER TABLE `conocimientoinformatica_curriculum` DISABLE KEYS */;
+INSERT INTO `conocimientoinformatica_curriculum` VALUES (1,1,3),(2,1,4),(3,1,5),(4,1,5),(5,1,6),(6,1,7),(7,1,8),(8,1,9),(9,1,10),(10,1,13),(11,1,14);
 /*!40000 ALTER TABLE `conocimientoinformatica_curriculum` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -92,7 +93,7 @@ CREATE TABLE `curriculum` (
   `disponibilidad` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `rut` (`rut`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -101,7 +102,7 @@ CREATE TABLE `curriculum` (
 
 LOCK TABLES `curriculum` WRITE;
 /*!40000 ALTER TABLE `curriculum` DISABLE KEYS */;
-INSERT INTO `curriculum` VALUES (1,'dsfg','dsfg','dsfgdfg','C:UsersCheloDesktoppdfGraficoEnJavauildimagenes	estImg','2020-07-06','Chilena','Soltero',1,'dsf','gdsfg','dsfgdsfg','Básica en curso','Desocupado','Vespertina'),(2,'gfjhjjjj','ghjgf','jhfgjhgf','C:UsersCheloDesktoppdfGraficoEnJavauildimagenes	estImg','2020-07-06','Chilena','Soltero',1,'jhfg','jhfgjh','gfjhgfjhfgjh','Básica en curso','Desocupado','Vespertina');
+INSERT INTO `curriculum` VALUES (1,'dsfg','dsfg','dsfgdfg','C:UsersCheloDesktoppdfGraficoEnJavauildimagenes	estImg','2020-07-06','Chilena','Soltero',1,'dsf','gdsfg','dsfgdsfg','Básica en curso','Desocupado','Vespertina'),(2,'gfjhjjjj','ghjgf','jhfgjhgf','C:UsersCheloDesktoppdfGraficoEnJavauildimagenes	estImg','2020-07-06','Chilena','Soltero',1,'jhfg','jhfgjh','gfjhgfjhfgjh','Básica en curso','Desocupado','Vespertina'),(3,'Marcelo','asdas','kkkkkkkkkkkkkkkkkkkk','C:UsersCheloDesktoppdfGraficoEnJavauildimagenes	estImg','2020-07-06','Chilena','Soltero',1,'sdfgsdfg','sdfgfg','fdggggg','Básica en curso','Desocupado','Nocturna'),(4,'Juanin','dfgdf','456','C:UsersCheloDesktoppdfGraficoEnJavauildimagenes	estImg.png','2020-07-06','Chilena','Soltero',1,'fgh','fgdh','fghfdg','Básica en curso','Desocupado','Vespertina'),(5,'guachin','efgdfg','guachin','C:UsersCheloDesktoppdfGraficoEnJavauildimagenes	estImg.png','2020-07-06','Chilena','Soltero',1,'dfg','dsgsdf','gdfgdfgf','Básica en curso','Desocupado','Vespertina'),(6,'iiii','dgdsf','otro','C:UsersCheloDesktoppdfGraficoEnJavauildimagenes	estImg.png','2020-07-06','Chilena','Soltero',1,'dfs','gsdgd','fsgsdfg','Básica en curso','Desocupado','Vespertina'),(7,'AGGG','fgdh','BRUH','C:UsersCheloDesktoppdfGraficoEnJavauildimagenes	estImg.png','2020-07-06','Chilena','Soltero',1,'fgh','dfgh','fdghfdgh','Básica en curso','Desocupado','Vespertina'),(8,'YESUH','YESUH','YESUH','C:UsersCheloDesktoppdfGraficoEnJavauildimagenesap.PNG','2020-07-06','Chilena','Soltero',1,'g','dfgdsf','gdsfgdfg','Básica en curso','Desocupado','Vespertina'),(9,'gsdfgdsf','dsf','Mistral','C:UsersCheloDesktoppdfGraficoEnJavauildimagenesap.PNG','2020-07-06','Chilena','Soltero',1,'gsdfg','sdfg','dsfgdsfg','Básica en curso','Desocupado','Vespertina'),(10,'sdfgdfs','gd','lolol','C:UsersCheloDesktoppdfGraficoEnJavauildimagenesap.PNG','2020-07-06','Chilena','Soltero',1,'gdsfg','sdfgsd','gdfsg','Básica en curso','Desocupado','Vespertina'),(11,'dfgd','ds','ppt','C:UsersCheloDesktoppdfGraficoEnJavauildimagenesap.PNG','2020-07-06','Chilena','Soltero',1,'sfgds','fgsd','fgsdfg','Básica en curso','Desocupado','Vespertina'),(12,'','','enviar','C:UsersCheloDesktoppdfGraficoEnJavauildimagenesap.PNG','2020-07-06','Chilena','Soltero',1,'','','','Básica en curso','Desocupado','Vespertina'),(13,'POOL','POOL','POOL','C:UsersCheloDesktoppdfGraficoEnJavauildimagenesap.PNG','2020-07-06','Chilena','Soltero',1,'SDFG','DSFG','DSFG','Básica en curso','Desocupado','Vespertina'),(14,'DFGDFG','GS','REEEEEEEE','C:UsersCheloDesktoppdfGraficoEnJavauildimagenesap.PNG','2020-07-06','Chilena','Soltero',1,'DF','GDFSG','SDFG','Básica en curso','Desocupado','Vespertina');
 /*!40000 ALTER TABLE `curriculum` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -121,7 +122,7 @@ CREATE TABLE `experiencia` (
   PRIMARY KEY (`id`),
   KEY `curriculumFK` (`curriculumFK`),
   CONSTRAINT `experiencia_ibfk_1` FOREIGN KEY (`curriculumFK`) REFERENCES `curriculum` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -130,6 +131,7 @@ CREATE TABLE `experiencia` (
 
 LOCK TABLES `experiencia` WRITE;
 /*!40000 ALTER TABLE `experiencia` DISABLE KEYS */;
+INSERT INTO `experiencia` VALUES (1,'Cargo?','Cargo?',0,3),(2,'Cargo?','Cargo?',0,4),(3,'Cargo?','Cargo?',0,5),(4,'Cargo?','Cargo?',0,6),(5,'Cargo?','Cargo?',0,7),(6,'Cargo?','Cargo?',0,8),(7,'Cargo?','Cargo?',0,9),(8,'Cargo?','Cargo?',0,10),(9,'Cargo?','Cargo?',0,13),(10,'Cargo?','Cargo?',0,14);
 /*!40000 ALTER TABLE `experiencia` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -173,7 +175,7 @@ CREATE TABLE `idioma_curriculum` (
   KEY `curriculumFK` (`curriculumFK`),
   CONSTRAINT `idioma_curriculum_ibfk_1` FOREIGN KEY (`idiomaFK`) REFERENCES `idioma` (`id`),
   CONSTRAINT `idioma_curriculum_ibfk_2` FOREIGN KEY (`curriculumFK`) REFERENCES `curriculum` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -182,6 +184,7 @@ CREATE TABLE `idioma_curriculum` (
 
 LOCK TABLES `idioma_curriculum` WRITE;
 /*!40000 ALTER TABLE `idioma_curriculum` DISABLE KEYS */;
+INSERT INTO `idioma_curriculum` VALUES (1,1,3),(2,1,4),(3,1,5),(4,1,6),(5,1,7),(6,1,8),(7,1,9),(8,1,10),(9,1,11),(10,1,13),(11,1,14);
 /*!40000 ALTER TABLE `idioma_curriculum` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -202,7 +205,7 @@ CREATE TABLE `referencia` (
   PRIMARY KEY (`id`),
   KEY `curriculumFK` (`curriculumFK`),
   CONSTRAINT `referencia_ibfk_1` FOREIGN KEY (`curriculumFK`) REFERENCES `curriculum` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -211,6 +214,7 @@ CREATE TABLE `referencia` (
 
 LOCK TABLES `referencia` WRITE;
 /*!40000 ALTER TABLE `referencia` DISABLE KEYS */;
+INSERT INTO `referencia` VALUES (1,'Nombre?','Apellido?','Cargo?','Teléfono?',3),(2,'Nombre?','Apellido?','Cargo?','Teléfono?',4),(3,'Nombre?','Apellido?','Cargo?','Teléfono?',5),(4,'Nombre?','Apellido?','Cargo?','Teléfono?',6),(5,'Nombre?','Apellido?','Cargo?','Teléfono?',7),(6,'Nombre?','Apellido?','Cargo?','Teléfono?',8),(7,'Nombre?','Apellido?','Cargo?','Teléfono?',9),(8,'Nombre?','Apellido?','Cargo?','Teléfono?',10),(9,'Nombre?','Apellido?','Cargo?','Teléfono?',13),(10,'Nombre?','Apellido?','Cargo?','Teléfono?',14);
 /*!40000 ALTER TABLE `referencia` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -223,4 +227,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-07-06  0:02:13
+-- Dump completed on 2020-07-06 14:44:55
